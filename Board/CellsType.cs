@@ -1,0 +1,27 @@
+namespace ProjectLogic;
+public enum CellsType
+{
+    NoVisible,
+    None,
+    Wall,
+    Obstaculos,
+    TrampaMosquitera,
+    HoyoProfundo,
+    PasilloAgotante,
+    RanaSorpresa,
+    portales,
+    Cruzado,
+    CruzadoOscuro,
+    Caballero,
+    CaballeroPesado,
+    Truhan,
+    Asesino,
+    Monje,
+    Escudero,
+    Ballestero,
+    ArqueroLargo,
+    Mercenario,
+    Mazero,
+    SeñorOscuro,
+    Final,
+}
