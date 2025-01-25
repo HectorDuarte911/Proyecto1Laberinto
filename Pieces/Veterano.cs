@@ -1,77 +1,48 @@
 using Spectre.Console;
-
+using System.Timers;
 namespace ProjectLogic;
 public class Veterano : PiecesBasic//Similar al Artillero
 {
-  public override PieceType PieceType =>PieceType.Veterano;
-   public override Player Number{get;} 
-  public static readonly Direction[] dirs = new Direction[]
-  {
-      Direction.Arriba,
-      Direction.Abajo,
-      Direction.Derecha,
-      Direction.Izquierda,
-  };
+  public override PieceType PieceType => PieceType.Veterano;
+  public override Player Number { get; }
   public Veterano(Player number)
   {
     Number = number;
   }
-   public override IEnumerable<Move> GetMoves(Position from, Board board)//Movimiento de la pieza
+  public static new List<Object> Inventary = new List<Object>();
+  public static void Hability()
   {
-    return MovePosicionInDirs(from, board).Select(to => new Move(from, to));
-  }
-  public override IEnumerable<Position> MovePosicionInDirs(Position from, Board board)
-  {
-   foreach (Direction dir in dirs)
+    GameState.timer.Elapsed += General.OnTimedEvent;
+    GameState.timer.AutoReset = false;
+    GameState.timer.Enabled = true;
+    Canvas trampas = new Canvas(GameState.dim, GameState.dim);
+    for (int i = 0; i < GameState.dim; i++)
     {
-      for(int i=1;i<=NumberOfMoves-NumberOfMovesDoing;i++)
+      for (int j = 0; j < GameState.dim; j++)
       {
-      Position to = from + i*dir;
-      if (!Board.IsInside(to))break;
-      if (board[to]!=CellsType.Wall && board[to]!=CellsType.Obstaculos)
-      {
-        yield return to;
+        if (i == 0 || j == 0 || i == GameState.dim - 1 || j == GameState.dim - 1)
+        {
+          trampas.SetPixel(i, j, Color.DarkRed);
+        }
+        else if (Board.IsATrap(GameState.Board[i, j]))
+        {
+          trampas.SetPixel(i, j, Color.Honeydew2);
+        }
+        else trampas.SetPixel(i, j, Color.Black);
       }
-      else if (PieceBoard.IsAPiece(to)||GameState.EsEvento(GameState.Board[to]))
-      {
-        continue;
-      }
-      else break; 
     }
-    } 
-     }
-    public static new List<Objetos> Inventario =new List<Objetos>()
-  {
-   Objetos.MacheteCorto,
-   Objetos.CamisaBlanca,
-  };
-  public  static void Habilidad()
-  {
-  Canvas trampas = new Canvas (GameState.dim,GameState.dim);
-  for (int i = 0; i < GameState.dim; i++)
-  {
-    for (int j = 0; j < GameState.dim; j++)
-    {
-      if(i == 0 || j == 0 || i == GameState.dim -1 || j ==GameState.dim - 1)
-      {
-       trampas.SetPixel(i,j,Color.DarkRed);
-      }
-      else if(Board.IsATrap(GameState.Board[i,j]))
-      {
-        trampas.SetPixel(i,j,Color.Honeydew2);
-      }
-      else trampas.SetPixel(i,j,Color.Black);
-    }
-  } 
-  AnsiConsole.Write(trampas);
+    AnsiConsole.Write(trampas);
+    Console.ReadKey();
+    General.StopTimer();
+    Console.Clear();
   }
-public static new string NombreHabilidad=>"Juego Limpio";  
-public static new int TurnosEnfriamiento=2;
-public static new int Armadura=3;
-public static new int Fuerza=4;
-public static new int NumberOfMoves = 4;
-public static new  int Visibilidad = 4;
-public static new Objetos ArmaEquipada{get;set;}
-public static new  Objetos ArmaduraEquipada{get;set;}
+  public static new string HabilityName => "Juego Limpio";
+  public static new int Coldturns = 2;
+  public static new int Armor = 3;
+  public static new int Force = 4;
+  public static new int NumberOfMoves = 4;
+  public static new int Visibility = 4;
+  public static new Object EquipItem { get; set; }
+  public static new Object EquipArmor { get; set; }
 }
 

@@ -3,6 +3,7 @@ public enum CellsType
 {
     NoVisible,
     None,
+    Cofre,
     Wall,
     Obstaculos,
     TrampaMosquitera,

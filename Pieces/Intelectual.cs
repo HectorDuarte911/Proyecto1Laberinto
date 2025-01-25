@@ -1,135 +1,124 @@
 namespace ProjectLogic;
-using  Spectre.Console;
-public class Intelectual : PiecesBasic //Similar al Artillero
+using Spectre.Console;
+using System.Timers;
+public class Intelectual : PiecesBasic
 {
   public override PieceType PieceType => PieceType.Intelectual;
-   public override Player Number{get;} 
-  public static readonly Direction[] dirs = new Direction[]
-  {
-      Direction.Arriba,
-      Direction.Abajo,
-      Direction.Derecha,
-      Direction.Izquierda,
-  };
+  public override Player Number { get; }
   public Intelectual(Player number)
   {
     Number = number;
   }
-    public override IEnumerable<Move> GetMoves(Position from, Board board)//Movimiento de la pieza
+  public static bool Correcto = false;
+  public static void OnTimedEvent(object source, ElapsedEventArgs e)
   {
-    return MovePosicionInDirs(from, board).Select(to => new Move(from, to));
-  }    
-  public override IEnumerable<Position> MovePosicionInDirs(Position from, Board board)
-  {
-   foreach (Direction dir in dirs)
-    {
-      for(int i=1;i<=NumberOfMoves-NumberOfMovesDoing;i++)
-      {
-      Position to = from + i*dir;
-      if (!Board.IsInside(to))break;
-      if (board[to]!=CellsType.Wall && board[to]!=CellsType.Obstaculos)
-      {
-        yield return to;
-      }
-      else if (PieceBoard.IsAPiece(to)||GameState.EsEvento(GameState.Board[to]))
-      {
-        continue;
-      }
-      else break; 
-    }
-    } 
-     }
-
-    public static new List<Objetos> Inventario =new List<Objetos>()
-  {
-   Objetos.Revolver,
-   Objetos.TrajeNegro,
-  };
-  public  static void Habilidad()
-  {
-    int countpreguntas = 0;
-    bool Correcto =false;
-    foreach (NombrePreguntas pregunta in Preguntas.PreguntasDisponibles)
-    {
-      countpreguntas++;
-    }
-  Random random = new Random();
-  int r = random.Next(0,countpreguntas);
-  string seleccionrespuesta = AnsiConsole.Prompt(new SelectionPrompt<string>()
-  .Title($"[DarkGoldenrod]{Preguntas.TextoPregunta[Preguntas.PreguntasDisponibles[r]]}[/]")
-  .PageSize(4)
-  .HighlightStyle(new Style(foreground:Spectre.Console.Color.Green))
-  .AddChoices(Preguntas.Elecciones[Preguntas.PreguntasDisponibles[r]]));
-  AnsiConsole.MarkupLineInterpolated($"A seleccionado [DarkGoldenrod]{seleccionrespuesta}[/]");   
-  if(seleccionrespuesta == Preguntas.PreguntasYRespuestas[Preguntas.PreguntasDisponibles[r]])
+    Console.Clear();
+    var panel = new Panel("[red]No ha respondido a tiempo[/]");
+    panel.Border = BoxBorder.Ascii;
+    panel.BorderColor(Color.Red);
+    AnsiConsole.Write(panel);
+    Console.ReadKey();
+  }
+  public static void StopTimer()
   {
     Correcto = true;
+    GameState.timer.Enabled = false;
   }
-  var panelresultadocorrecta = new Panel($"[green]Su respuesta es correcta elija que habilidad obtener[/]");
-  var panelresultadoincorrecto = new Panel($"[red]Su respuesta es incorrecta la verdadera respuesta es[/][green] {Preguntas.PreguntasYRespuestas[Preguntas.PreguntasDisponibles[r]]}[/]");
-  panelresultadocorrecta.Border = BoxBorder.Ascii;
-  panelresultadoincorrecto.Border = BoxBorder.Ascii;
-  panelresultadocorrecta.BorderColor(Color.Green);
-  panelresultadoincorrecto.BorderColor(Color.Red);
-  if(Correcto)AnsiConsole.Write(panelresultadocorrecta);
-  else 
+  public static new List<Object> Inventary = new List<Object>();
+  public static void Hability()
   {
-    int ActivacionTurnInIntelectual = GameState.Turno + Intelectual.TurnosEnfriamiento;
-    GameState.PlayerBasicTurnoHabidad(GameState.CurrentPlayer, ActivacionTurnInIntelectual);
-    AnsiConsole.Write(panelresultadoincorrecto);
-  }
-  if(Correcto)
-  {
-   string seleccionhabilidad = AnsiConsole.Prompt(new SelectionPrompt<string>()
-  .Title($"[DarkGoldenrod]Selecciona que habilidad desea posseer[/]")
-  .PageSize(11)
-  .HighlightStyle(new Style(foreground:Color.Green))
-  .AddChoices(
-    Artillero.NombreHabilidad,
-    EsclavoLibre.NombreHabilidad,
-    Explorador.NombreHabilidad,
-    General.NombreHabilidad,
-    Holguinero.NombreHabilidad,
-    Internacionalista.NombreHabilidad,
-    Jinete.NombreHabilidad,
-    Soldado.NombreHabilidad,
-    Titan.NombreHabilidad,
-    Terrateniente.NombreHabilidad,
-    Veterano.NombreHabilidad
-    ));
-  AnsiConsole.MarkupLineInterpolated($"A seleccionado [DarkGoldenrod]{seleccionhabilidad}[/]"); 
-  NombreHabilidad = seleccionhabilidad;
-  }
-  }
- public  static void DesactivarHabilidad()
- {
-   foreach (PieceType piece in PiecesBasic.PiecesWhithHabil)
-   {
-    switch (piece)
+    int countQuestion = 0;
+    foreach (QuestionsName question in Question.QuestionsInGame)
     {
-      case PieceType.Internacionalista :
-      if(Internacionalista.NombreHabilidad == NombreHabilidad)Internacionalista.DesactivarHabilidad();
-      break;
-      case PieceType.Jinete :
-      if(Jinete.NombreHabilidad == NombreHabilidad)Jinete.DesactivarHabilidad();
-      break;
-      case PieceType.Titan :
-      if(Titan.NombreHabilidad == NombreHabilidad)Titan.DesactivarHabilidad();
-      break;
-      case PieceType.Terrateniente:
-      if(Terrateniente.NombreHabilidad == NombreHabilidad)Terrateniente.DesactivarHabilidad();
-      break;
+      countQuestion++;
     }
-    
-   }
- }
-public static new string NombreHabilidad{get;set;}
-public static new int TurnosEnfriamiento=2;
-public static new int Armadura=2;
-public static new int Fuerza=2;
-public static new int NumberOfMoves = 4;
-public static new  int Visibilidad = 4;
-public static new  Objetos ArmaEquipada{get;set;}
-public static new  Objetos ArmaduraEquipada{get;set;}
+    Random random = new Random();
+    int r = random.Next(0, countQuestion);
+    GameState.timer.Elapsed += OnTimedEvent;
+    GameState.timer.AutoReset = false;
+    GameState.timer.Enabled = true;
+    string selection = AnsiConsole.Prompt(new SelectionPrompt<string>()
+    .Title($"[DarkGoldenrod]{Question.QuesionsTexts[Question.QuestionsInGame[r]]}[/]")
+    .PageSize(4)
+    .HighlightStyle(new Style(foreground: Spectre.Console.Color.Green))
+    .AddChoices(Question.Elections[Question.QuestionsInGame[r]]));
+    AnsiConsole.MarkupLineInterpolated($"A seleccionado [DarkGoldenrod]{selection}[/]");
+    StopTimer();
+    if (selection == Question.QuestionAnswer[Question.QuestionsInGame[r]] && Correcto)
+      Correcto = true;
+    else Correcto = false;
+    var CorrectPanel = new Panel($"[green]Su respuesta es correcta elija que habilidad obtener[/]");
+    var IncorrectPanel = new Panel($"[red]Su respuesta es incorrecta, la verdadera respuesta es[/][green] {Question.QuestionAnswer[Question.QuestionsInGame[r]]}[/]");
+    CorrectPanel.Border = BoxBorder.Ascii;
+    IncorrectPanel.Border = BoxBorder.Ascii;
+    CorrectPanel.BorderColor(Color.Green);
+    IncorrectPanel.BorderColor(Color.Red);
+    if (Correcto) AnsiConsole.Write(CorrectPanel);
+    else
+    {
+      int ActivationTurnIntelectual = GameState.Turn + Coldturns;
+      GameState.SetHabilityTurn(GameState.CurrentPlayer, ActivationTurnIntelectual);
+      AnsiConsole.Write(IncorrectPanel);
+    }
+    if (Correcto)
+    {
+      string HabilitySelection = AnsiConsole.Prompt(new SelectionPrompt<string>()
+     .Title($"[DarkGoldenrod]Selecciona que habilidad desea posseer[/]")
+     .PageSize(11)
+     .HighlightStyle(new Style(foreground: Color.Green))
+     .AddChoices(
+       Artillero.HabilityName,
+       EsclavoLibre.HabilityName,
+       Explorador.HabilityName,
+       General.HabilityName,
+       Holguinero.HabilityName,
+       Internacionalista.HabilityName,
+       Jinete.HabilityName,
+       Soldado.HabilityName,
+       Titan.HabilityName,
+       Hitman.HabilityName,
+       Veterano.HabilityName
+       ));
+      AnsiConsole.MarkupLineInterpolated($"A seleccionado [DarkGoldenrod]{HabilitySelection}[/]");
+      HabilityName = HabilitySelection;
+      Question.QuestionsInGame.Remove(Question.QuestionsInGame[r]);
+      countQuestion--;
+    }
+    if (countQuestion == 0)
+    {
+      var panel = new Panel("[red]No hay más prguntas disponibles se quedará con la última habilidad seleccionada[/]");
+      panel.Border = BoxBorder.Ascii;
+      panel.BorderColor(Color.Red);
+      AnsiConsole.Write(panel);
+      GameState.Trivial = false;
+    }
+  }
+  public static void EnableHability()
+  {
+    foreach (PieceType piece in PiecesWhithHability)
+    {
+      switch (piece)
+      {
+        case PieceType.Internacionalista:
+          if (Internacionalista.HabilityName == HabilityName) Internacionalista.EnableHability();
+          break;
+        case PieceType.Jinete:
+          if (Jinete.HabilityName == HabilityName) Jinete.EnableHability();
+          break;
+        case PieceType.Titan:
+          if (Titan.HabilityName == HabilityName) Titan.EnableHability();
+          break;
+      }
+
+    }
+  }
+  public static new string HabilityName { get; set; }
+  public static new int Coldturns = 2;
+  public static new int Armor = 2;
+  public static new int Force = 2;
+  public static new int NumberOfMoves = 4;
+  public static new int Visibility = 4;
+  public static new Object EquipItem { get; set; }
+  public static new Object EquipArmor { get; set; }
 
 }

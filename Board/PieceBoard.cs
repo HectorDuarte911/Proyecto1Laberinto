@@ -1,56 +1,53 @@
 namespace ProjectLogic;
 public class PieceBoard
 {
-    public static PiecesBasic[,] Laberinto = new PiecesBasic[GameState.dim, GameState.dim];
+    public static PiecesBasic[,] Laberinth = new PiecesBasic[GameState.dim, GameState.dim];
 
     public PiecesBasic this[int row, int col]
     {
-        get { return Laberinto[row, col]; }
-        set {Laberinto[row, col] = value; }
-
+        get { return Laberinth[row, col]; }
+        set { Laberinth[row, col] = value; }
     }
     public PiecesBasic this[Position pos]
     {
         get { return this[pos.Row, pos.Column]; }
-        set {this[pos.Row, pos.Column] = value;}
+        set { this[pos.Row, pos.Column] = value; }
     }
-    public static void StartPiecePositions(PiecesBasic piece,Player player)
+    public static void StartPiecePositions(PiecesBasic piece, Player player)
     {
-        switch(player)
+        switch (player)
         {
             case Player.PrimerJugador:
-            GameState.PieceBoard[new Position(1,1)]=piece;
-            break;
+                GameState.PieceBoard[new Position(1, 1)] = piece;
+                break;
             case Player.SegundoJugador:
-            GameState.PieceBoard[new Position(GameState.dim-2,GameState.dim-2)]=piece;
-            break;
+                GameState.PieceBoard[new Position(GameState.dim - 2, GameState.dim - 2)] = piece;
+                break;
             case Player.TercerJugador:
-            GameState.PieceBoard[new Position(1,GameState.dim-2)]=piece;
-            break;
+                GameState.PieceBoard[new Position(1, GameState.dim - 2)] = piece;
+                break;
             case Player.CuartoJugador:
-            GameState.PieceBoard[new Position(GameState.dim-2,1)]=piece;
-            break;
-        }
-    
-
-        }
-        public static void ComplitePiecePositions()
-        {
-        for(int i=0;i<GameState.dim;i++)
-        {
-            for(int j=0;j<GameState.dim;j++)
-            {
-                if(!((i==1 && j==1) ||(i==GameState.dim-2 && j==GameState.dim-2) || 
-                  (GameState.CantidadJugadores==3 && i==1 && j==GameState.dim-2 )||
-                  (GameState.CantidadJugadores==4 && i==GameState.dim-2 && j==1))  )GameState.PieceBoard[i,j]=new None(Player.None);
-            }
-        }
-        }
-        public static bool IsAPiece(Position pos)
-        {
-         if(GameState.PieceBoard[pos]!=null)return GameState.PieceBoard[pos].PieceType!=PieceType.None;
-          else throw new Exception("Referencia de posicion nulllll");
+                GameState.PieceBoard[new Position(GameState.dim - 2, 1)] = piece;
+                break;
         }
     }
+    public static void CompletePiecePositions()
+    {
+        for (int i = 0; i < GameState.dim; i++)
+        {
+            for (int j = 0; j < GameState.dim; j++)
+            {
+                if (!((i == 1 && j == 1) || (i == GameState.dim - 2 && j == GameState.dim - 2) ||
+                  (GameState.NumberPLayer == 3 && i == 1 && j == GameState.dim - 2) ||
+                  (GameState.NumberPLayer == 4 && i == GameState.dim - 2 && j == 1))) GameState.PieceBoard[i, j] = new None();
+            }
+        }
+    }
+    public static bool IsAPiece(Position pos)
+    {
+        if (GameState.PieceBoard[pos] != null) return GameState.PieceBoard[pos].PieceType != PieceType.None;
+        throw new NullReferenceException();
+    }
+}
 
 

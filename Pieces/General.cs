@@ -1,76 +1,60 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class General : PiecesBasic//Similar al Artillero
+using System.Timers;
+public class General : PiecesBasic
 {
   public override PieceType PieceType => PieceType.General;
-   public override Player Number{get;} 
-  public static readonly Direction[] dirs = new Direction[]
-  {
-      Direction.Arriba,
-      Direction.Abajo,
-      Direction.Derecha,
-      Direction.Izquierda,
-  };
+  public override Player Number { get; }
   public General(Player number)
   {
     Number = number;
   }
-    public override IEnumerable<Move> GetMoves(Position from, Board board)//Movimiento de la pieza
+  public static new List<Object> Inventary = new List<Object>();
+  public static void OnTimedEvent(object source, ElapsedEventArgs e)
   {
-    return MovePosicionInDirs(from, board).Select(to => new Move(from, to));
+    Console.Clear();
+    var panel = new Panel("[red]Se acabó el tiempo[/]");
+    panel.Border = BoxBorder.Ascii;
+    panel.BorderColor(Color.Red);
+    AnsiConsole.Write(panel);
+    Console.ReadKey();
   }
-  public override IEnumerable<Position> MovePosicionInDirs(Position from, Board board)
+  public static void StopTimer()
   {
-   foreach (Direction dir in dirs)
-    {
-      for(int i=1;i<=NumberOfMoves-NumberOfMovesDoing;i++)
-      {
-      Position to = from + i*dir;
-      if (!Board.IsInside(to))break;
-      if (board[to]!=CellsType.Wall && board[to]!=CellsType.Obstaculos)
-      {
-        yield return to;
-      }
-      else if (PieceBoard.IsAPiece(to)||GameState.EsEvento(GameState.Board[to]))
-      {
-        continue;
-      }
-      else break; 
-    }
-    } 
-     }
-    public static new List<Objetos> Inventario =new List<Objetos>()
-  {
-   Objetos.Revolver,
-   Objetos.CasacaAzulCondecorada,
-  };
-  public  static void Habilidad()
-  {
-  Canvas eventos = new Canvas (GameState.dim,GameState.dim);
-  for (int i = 0; i < GameState.dim; i++)
-  {
-    for (int j = 0; j < GameState.dim; j++)
-    {
-      if(i == 0 || j == 0 || i == GameState.dim -1 || j ==GameState.dim - 1)
-      {
-       eventos.SetPixel(i,j,Color.DarkRed);
-      }
-      else if(GameState.EsEvento(GameState.Board[i,j]))
-      {
-        eventos.SetPixel(i,j,Color.Honeydew2);
-      }
-      else  eventos.SetPixel(i,j,Color.Black);
-      
-    }
-  } 
-  AnsiConsole.Write(eventos);
+    GameState.timer.Enabled = false;
   }
-public static new string NombreHabilidad=>"Prediccion de jefes";
-public static new int TurnosEnfriamiento=2;
-public static new int Armadura=4;
-public static new int Fuerza=3;
-public static new int NumberOfMoves = 4;
-public static new  int Visibilidad = 4;
-public static new Objetos ArmaEquipada{get;set;}
-public static new  Objetos ArmaduraEquipada{get;set;}
+  public static void Hability()
+  {
+    GameState.timer.Elapsed += OnTimedEvent;
+    GameState.timer.AutoReset = false;
+    GameState.timer.Enabled = true;
+    Canvas events = new Canvas(GameState.dim, GameState.dim);
+    for (int i = 0; i < GameState.dim; i++)
+    {
+      for (int j = 0; j < GameState.dim; j++)
+      {
+        if (i == 0 || j == 0 || i == GameState.dim - 1 || j == GameState.dim - 1)
+        {
+          events.SetPixel(i, j, Color.DarkRed);
+        }
+        else if (GameState.IsEvent(GameState.Board[i, j]))
+        {
+          events.SetPixel(i, j, Color.Honeydew2);
+        }
+        else events.SetPixel(i, j, Color.Black);
+      }
+    }
+    AnsiConsole.Write(events);
+    Console.ReadKey();
+    StopTimer();
+    Console.Clear();
+  }
+  public static new string HabilityName => "Predicción de jefes";
+  public static new int Coldturns = 2;
+  public static new int Armor = 4;
+  public static new int Force = 3;
+  public static new int NumberOfMoves = 4;
+  public static new int Visibility = 4;
+  public static new Object EquipItem { get; set; }
+  public static new Object EquipArmor { get; set; }
 }

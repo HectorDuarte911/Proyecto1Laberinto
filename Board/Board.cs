@@ -3,95 +3,96 @@
 namespace ProjectLogic;
 public class Board
 {
-    public static CellsType[,] Laberinto=new CellsType[GameState.dim,GameState.dim];
+    public static CellsType[,] Laberinth = new CellsType[GameState.dim, GameState.dim];
     public CellsType this[int row, int col]
     {
-        get { return Laberinto[row, col];}
-        set { Laberinto[row, col] = value;}
+        get { return Laberinth[row, col]; }
+        set { Laberinth[row, col] = value; }
     }
     public CellsType this[Position pos]
     {
-        get { return this[pos.Row, pos.Column];}
-        set { this[pos.Row, pos.Column] = value;}
+        get { return this[pos.Row, pos.Column]; }
+        set { this[pos.Row, pos.Column] = value; }
     }
-    public static bool IsInside(Position pos)//Metodo para identificar si la posicion se encuentra dentro del laberinto
+    public static bool IsInside(Position pos)
     {
         return pos.Row >= 0 && pos.Row < GameState.dim && pos.Column >= 0 && pos.Column < GameState.dim;
     }
-    public static bool IsATrap(CellsType Cells)//Metodo para identificar si una celda es una trampa
+    public static bool IsATrap(CellsType Cells)
     {
         return Cells == CellsType.TrampaMosquitera || Cells == CellsType.HoyoProfundo || Cells == CellsType.PasilloAgotante
-             ||Cells == CellsType.RanaSorpresa;
+             || Cells == CellsType.RanaSorpresa;
     }
-   public static CellsType [,] VisualPieza(Position pos ,CellsType[,] Board)
-   {
-    CellsType[,] VisualLab=new CellsType[GameState.dim,GameState.dim];
-    for(int i = 0;i < GameState.dim;i++)
+    public static CellsType[,] VisualPiece(Position pos, CellsType[,] Board)
     {
-        for(int j = 0 ; j < GameState.dim ; j++)
+        CellsType[,] VisualLab = new CellsType[GameState.dim, GameState.dim];
+        for (int i = 0; i < GameState.dim; i++)
         {
-            if(ISVisible(pos,new Position(i,j),Board,GameState.GetVisibility(GameState.PlayerPieceBasic(GameState.CurrentPlayer))-1))
+            for (int j = 0; j < GameState.dim; j++)
             {
-                VisualLab[i,j]=Board[i,j];
+                if (ISVisible(pos, new Position(i, j), Board, GameState.GetVisibility(GameState.PlayerPieceBasic(GameState.CurrentPlayer)) - 1))
+                {
+                    VisualLab[i, j] = Board[i, j];
+                }
+                else VisualLab[i, j] = CellsType.NoVisible;
             }
-            else VisualLab[i,j]=CellsType.NoVisible;
         }
+        return VisualLab;
     }
-       return VisualLab;
-   }
-   public static bool IsVisualNoWall(Position piecepos,Position Topos,int numberVis)
-   {
-    if(GameState.Board[Topos] != CellsType.Wall )
+    public static bool ISVisible(Position pos, Position to, CellsType[,] Board, int numberVis)
     {
-        bool[,] visitated=new bool[GameState.dim,GameState.dim];
-        return EsAlcanzanle(GameState.Board,piecepos,Topos,numberVis,visitated) ;
+        return IsVisualNoWall(pos, to, numberVis) || IsVisualWall(pos, to, numberVis);
     }
-   return false;
-   }
-   public static bool IsVisualWall(Position piecepos,Position Topos,int numberVis)
-   {
-    List<Direction>dirs=new List<Direction>()
+    public static bool IsVisualNoWall(Position piecepos, Position Topos, int numberVis)
     {
-    Direction.Arriba,
-    Direction.Abajo,
-    Direction.Derecha,
-    Direction.Izquierda,
-    Direction.ArribaDerecha,
-    Direction.AbajoIzquierda,
-    Direction.AbajoDerecha,
-    Direction.ArribaIzquierda,  
+        if (GameState.Board[Topos] != CellsType.Wall)
+        {
+            bool[,] visitated = new bool[GameState.dim, GameState.dim];
+            return IsReachable(GameState.Board, piecepos, Topos, numberVis, visitated);
+        }
+        return false;
+    }
+    public static bool IsVisualWall(Position piecepos, Position Topos, int numberVis)
+    {
+        List<Direction> dirs = new List<Direction>()
+    {
+    Direction.Up,
+    Direction.Down,
+    Direction.Right,
+    Direction.Left,
+    Direction.UpRight,
+    Direction.DownLeft,
+    Direction.DownRight,
+    Direction.UpLeft,
     };
-   foreach(Direction dir in dirs)
-   {
-    Position adyacente=Topos + dir;
-    if(IsInside(adyacente)  ){
-    if(IsVisualNoWall(piecepos,adyacente,numberVis)) return true;
+        foreach (Direction dir in dirs)
+        {
+            Position adyancent = Topos + dir;
+            if (IsInside(adyancent))
+            {
+                if (IsVisualNoWall(piecepos, adyancent, numberVis)) return true;
+            }
+        }
+        return false;
     }
-   }
-   return false;
-   }
-  public static bool EsAlcanzanle(Board board,Position from,Position to,int remeingmove,bool[,] visitated) 
-  {
-   if(from.Row==to.Row && from.Column == to.Column)return true;
-   if(remeingmove == 0)return false;
-   visitated[from.Row,from.Column]=true;
-   foreach(Direction dir in Artillero.dirs)
-   {
-    Position newPos=from + dir;
-    if(IsInside(newPos) && board[newPos] != CellsType.Wall && !visitated[newPos.Row,newPos.Column]) 
+    public static bool IsReachable(Board board, Position from, Position to, int remeingmove, bool[,] visitated)
     {
-     if(EsAlcanzanle(GameState.Board,newPos,to,remeingmove-1,visitated))return true;
+        if (from.Row == to.Row && from.Column == to.Column) return true;
+        if (remeingmove == 0) return false;
+        visitated[from.Row, from.Column] = true;
+        foreach (Direction dir in Move.dirs)
+        {
+            Position newPos = from + dir;
+            if (IsInside(newPos) && board[newPos] != CellsType.Wall && !visitated[newPos.Row, newPos.Column])
+            {
+                if (IsReachable(GameState.Board, newPos, to, remeingmove - 1, visitated)) return true;
+            }
+        }
+        visitated[from.Row, from.Column] = false;
+        return false;
     }
-   }
-   visitated[from.Row,from.Column]=false;
-   return false;
-  }
-  public static bool ISVisible(Position pos ,Position to,CellsType[,] Board,int numberVis)
-  {
-    return IsVisualNoWall(pos,to,numberVis)|| IsVisualWall(pos,to,numberVis);
-  }
 }
-  
+
 
 
 

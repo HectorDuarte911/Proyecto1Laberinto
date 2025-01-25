@@ -1,64 +1,31 @@
 namespace ProjectLogic;
-public class Jinete : PiecesBasic //Similar al Artillero
+public class Jinete : PiecesBasic
 {
   public override PieceType PieceType => PieceType.Jinete;
- public override Player Number{get;} 
-  public static readonly Direction[] dirs = new Direction[]
-  {
-      Direction.Arriba,
-      Direction.Abajo,
-      Direction.Derecha,
-      Direction.Izquierda,
-  };
+  public override Player Number { get; }
   public Jinete(Player number)
   {
     Number = number;
   }
-   public override IEnumerable<Move> GetMoves(Position from, Board board)//Movimiento de la pieza
+  public static new List<Object> Inventary = new List<Object>();
+  public static void Hability()
   {
-    return MovePosicionInDirs(from, board).Select(to => new Move(from, to));
+    if (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Internacionalista) Force += NumberOfMovesDoing / 2;
+    else Intelectual.Force += NumberOfMovesDoing / 2;
+    GameState.ActivationAux = NumberOfMovesDoing / 2;
   }
-  public override IEnumerable<Position> MovePosicionInDirs(Position from, Board board)
+  public static void EnableHability()
   {
-   foreach (Direction dir in dirs)
-    {
-      for(int i=1;i<=NumberOfMoves-NumberOfMovesDoing;i++)
-      {
-      Position to = from + i*dir;
-      if (!Board.IsInside(to))break;
-      if (board[to]!=CellsType.Wall && board[to]!=CellsType.Obstaculos)
-      {
-        yield return to;
-      }
-      else if (PieceBoard.IsAPiece(to)||GameState.EsEvento(GameState.Board[to]))
-      {
-        continue;
-      }
-      else break; 
-    }
-    } 
-     }
-  public static new List<Objetos> Inventario =new List<Objetos>()
-  {
-   Objetos.MacheteLargo,
-   Objetos.RopaGastada,
-  };
-  public  static void Habilidad()
-  {
-    Fuerza += NumberOfMovesDoing / 2 ;
-    GameState.AuxiliarActivacion = NumberOfMovesDoing / 2 ;
+    if (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Internacionalista) Force -= GameState.ActivationAux;
+    else Intelectual.Force -= GameState.ActivationAux;
   }
-  public  static void DesactivarHabilidad()
-  {
-   Fuerza -= GameState.AuxiliarActivacion;     
-  }
-public static new string NombreHabilidad=>"Cargar";
-public static new int TurnosEnfriamiento=2;
-public static new int Armadura=2;
-public static new int Fuerza=4;
-public static new int NumberOfMoves = 5;
-public static new  int Visibilidad = 5;
-public static new Objetos ArmaEquipada{get;set;}
-public static new  Objetos ArmaduraEquipada{get;set;}
+  public static new string HabilityName => "Cargar";
+  public static new int Coldturns = 2;
+  public static new int Armor = 2;
+  public static new int Force = 4;
+  public static new int NumberOfMoves = 5;
+  public static new int Visibility = 5;
+  public static new Object EquipItem { get; set; }
+  public static new Object EquipArmor { get; set; }
 
 }

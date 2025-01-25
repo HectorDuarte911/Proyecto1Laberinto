@@ -1,8 +1,8 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class GenerarLabForm:GenerarLabStruct
+public class GenerateLabForm : GenerateLabStruct
 {
-public static List<CellsType> ValoresPosiblesComple = new List<CellsType>()
+    public static List<CellsType> RamdomCellsBuilding = new List<CellsType>()
    {
     CellsType.None,
     CellsType.None,
@@ -28,8 +28,9 @@ public static List<CellsType> ValoresPosiblesComple = new List<CellsType>()
     CellsType.Mercenario,
     CellsType.Mazero,
     CellsType.SeñorOscuro,
+    CellsType.Cofre
    };
-    public static List<CellsType> ProbabilidadesObstaculos = new List<CellsType>()
+    public static List<CellsType> ObstacleChance = new List<CellsType>()
    {
     CellsType.None,
     CellsType.None,
@@ -51,43 +52,42 @@ public static List<CellsType> ValoresPosiblesComple = new List<CellsType>()
     CellsType.None,
     CellsType.Obstaculos,
    };
-public static bool IsCompleteVisited(bool[,] visitadas)
+    public static bool IsCompleteVisited(bool[,] visited)
     {
-        for (int i = 0; i < visitadas.GetLength(0); i++)
+        for (int i = 0; i < visited.GetLength(0); i++)
         {
-            for (int j = 0; j < visitadas.GetLength(1); j++)
+            for (int j = 0; j < visited.GetLength(1); j++)
             {
-            if (!visitadas[i, j]) return false;
+                if (!visited[i, j]) return false;
             }
         }
         return true;
     }
     public static void CompleteLab()
     {
-       
-        int leght = 24;
+        int leght = 25;
         int trampcount = 0;
-        bool[,] visitadas = new bool[GameState.dim, GameState.dim];
+        bool[,] visited = new bool[GameState.dim, GameState.dim];
         for (int i = 0; i < GameState.dim; i++)
         {
             for (int j = 0; j < GameState.dim; j++)
             {
-                if (GameState.Board[i, j] == CellsType.Wall || GameState.Board[i, j] == CellsType.Obstaculos 
-                || PieceBoard.IsAPiece(new Position(i, j)))visitadas[i, j] = true;
-                else visitadas[i, j] = false;
+                if (GameState.Board[i, j] == CellsType.Wall || GameState.Board[i, j] == CellsType.Obstaculos
+                || PieceBoard.IsAPiece(new Position(i, j))) visited[i, j] = true;
+                else visited[i, j] = false;
             }
         }
-        while (!IsCompleteVisited(visitadas))
+        while (!IsCompleteVisited(visited))
         {
             Random randomRow = new Random();
             int i = randomRow.Next(1, GameState.dim - 1);
             Random randomColumn = new Random();
             int j = randomColumn.Next(1, GameState.dim - 1);
-            if (!visitadas[i, j] && GameState.Board[i, j] == CellsType.None && !PieceBoard.IsAPiece(new Position(i, j)))
+            if (!visited[i, j] && GameState.Board[i, j] == CellsType.None && !PieceBoard.IsAPiece(new Position(i, j)))
             {
                 Random random = new Random();
                 int r = random.Next(0, leght);
-                if (ValoresPosiblesComple[r] == CellsType.portales)
+                if (RamdomCellsBuilding[r] == CellsType.portales)
                 {
                     for (int k = 1; k < GameState.dim - 1; k++)
                     {
@@ -95,69 +95,69 @@ public static bool IsCompleteVisited(bool[,] visitadas)
                         {
                             if (GameState.Board[k, l] == CellsType.portales && Board.IsVisualNoWall(new Position(i, j), new Position(k, l), 3))
                             {
-                                while (ValoresPosiblesComple[r] == CellsType.portales)
+                                while (RamdomCellsBuilding[r] == CellsType.portales)
                                 {
-                                 r = random.Next(0, leght);
+                                    r = random.Next(0, leght);
                                 }
                                 break;
                             }
                         }
                     }
                 }
-                GameState.Board[i, j] = ValoresPosiblesComple[r];
-                if (IsATrap(ValoresPosiblesComple[r])) trampcount++;
-                else if (ValoresPosiblesComple[r] == CellsType.portales)  
+                GameState.Board[i, j] = RamdomCellsBuilding[r];
+                if (IsATrap(RamdomCellsBuilding[r])) trampcount++;
+                else if (RamdomCellsBuilding[r] == CellsType.portales)
                 {
-                    ValoresPosiblesComple.Remove(CellsType.portales);
+                    RamdomCellsBuilding.Remove(CellsType.portales);
                     leght--;
                 }
-                else if (GameState.EsEvento(ValoresPosiblesComple[r]))
+                else if (GameState.IsEvent(RamdomCellsBuilding[r]))
                 {
-                    ValoresPosiblesComple.Remove(ValoresPosiblesComple[r]);
+                    RamdomCellsBuilding.Remove(RamdomCellsBuilding[r]);
                     leght--;
                 }
-                 if (trampcount == 20)
+                if (trampcount == 20)
                 {
-                    ValoresPosiblesComple.Remove(CellsType.HoyoProfundo);
-                    ValoresPosiblesComple.Remove(CellsType.PasilloAgotante);
-                    ValoresPosiblesComple.Remove(CellsType.RanaSorpresa);
-                    ValoresPosiblesComple.Remove(CellsType.TrampaMosquitera);
-                    leght-=5;
+                    RamdomCellsBuilding.Remove(CellsType.HoyoProfundo);
+                    RamdomCellsBuilding.Remove(CellsType.PasilloAgotante);
+                    RamdomCellsBuilding.Remove(CellsType.RanaSorpresa);
+                    RamdomCellsBuilding.Remove(CellsType.TrampaMosquitera);
+                    leght -= 5;
                     trampcount = 0;
                 }
-                visitadas[i, j] = true;
+                visited[i, j] = true;
             }
         }
-        GameState.Board[GameState.dim / 2, GameState.dim / 2 ] = CellsType.Final;
-        int wallcount =0;
+        GameState.Board[GameState.dim / 2, GameState.dim / 2] = CellsType.Final;
+        int wallcount = 0;
         List<Position> WallCells = new List<Position>();
-        Position finalpos =new Position(GameState.dim / 2, GameState.dim / 2 );
-        foreach (Direction dir in Artillero.dirs)
+        Position finalpos = new Position(GameState.dim / 2, GameState.dim / 2);
+        foreach (Direction dir in Move.dirs)
         {
-            if(GameState.Board[finalpos + dir] == CellsType.Wall)
+            if (GameState.Board[finalpos + dir] == CellsType.Wall)
             {
-            WallCells.Add(finalpos + dir);
-            wallcount++;
+                WallCells.Add(finalpos + dir);
+                wallcount++;
             }
         }
-        if(wallcount == 4)
+        if (wallcount == 4)
         {
-            Random random =new Random();
-            int r = random.Next(0,4);
-           GameState.Board[WallCells[r]] = CellsType.None;
+            Random random = new Random();
+            int r = random.Next(0, 4);
+            GameState.Board[WallCells[r]] = CellsType.None;
         }
     }
-    public static void ColocandoObstaculos()
+    public static void ObstacleGenerating()
     {
-        for (int i = 1; i < GameState.dim-1; i++)
+        for (int i = 1; i < GameState.dim - 1; i++)
         {
-            for (int j = 1; j < GameState.dim-1; j++)
+            for (int j = 1; j < GameState.dim - 1; j++)
             {
                 if (GameState.Board[i, j] == CellsType.None && !PieceBoard.IsAPiece(new Position(i, j)))
                 {
                     Random random = new Random();
                     int r = random.Next(0, 19);
-                    GameState.Board[i, j] = ProbabilidadesObstaculos[r];
+                    GameState.Board[i, j] = ObstacleChance[r];
                 }
             }
         }

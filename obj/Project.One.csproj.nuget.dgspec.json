@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dania\\Documents\\ProgramProject\\ProyectoLaberinto\\Project.One\\Project.One.csproj": {}
+    "C:\\Users\\dania\\Documents\\ProgramProject\\Proyectos\\Maze_Runers\\Project.One.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dania\\Documents\\ProgramProject\\ProyectoLaberinto\\Project.One\\Project.One.csproj": {
+    "C:\\Users\\dania\\Documents\\ProgramProject\\Proyectos\\Maze_Runers\\Project.One.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dania\\Documents\\ProgramProject\\ProyectoLaberinto\\Project.One\\Project.One.csproj",
+        "projectUniqueName": "C:\\Users\\dania\\Documents\\ProgramProject\\Proyectos\\Maze_Runers\\Project.One.csproj",
         "projectName": "Project.One",
-        "projectPath": "C:\\Users\\dania\\Documents\\ProgramProject\\ProyectoLaberinto\\Project.One\\Project.One.csproj",
+        "projectPath": "C:\\Users\\dania\\Documents\\ProgramProject\\Proyectos\\Maze_Runers\\Project.One.csproj",
         "packagesPath": "C:\\Users\\dania\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dania\\Documents\\ProgramProject\\ProyectoLaberinto\\Project.One\\obj\\",
+        "outputPath": "C:\\Users\\dania\\Documents\\ProgramProject\\Proyectos\\Maze_Runers\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dania\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -43,6 +43,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "NAudio": {
+              "target": "Package",
+              "version": "[2.2.1, )"
+            },
             "Spectre.Console": {
               "target": "Package",
               "version": "[0.49.1, )"
