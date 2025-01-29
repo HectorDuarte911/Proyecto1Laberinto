@@ -93,16 +93,16 @@ public class PieceMethods:PositionMethods
                 GameState.PiecesInGame.Add(PieceType.Intelectual);
                 PiecesBasic.Pieces.Remove(PieceType.Intelectual);
                 break;
-            case PieceType.Internacionalista:
-                PieceBoard.StartPiecePositions(new Internacionalista(GameState.CurrentPlayer), GameState.CurrentPlayer);
-                Internacionalista.EquipItem = Object.Fusiles;
-                Internacionalista.EquipArmor = Object.CamisaBlanca;
-                Internacionalista.Inventary.Add(Object.Fusiles);
-                Internacionalista.Inventary.Add(Object.CamisaBlanca);
-                Internacionalista.Force += ObjectsStats.StatsForce[Object.Fusiles];
-                Internacionalista.Armor += ObjectsStats.StatsArmor[Object.CamisaBlanca];
-                GameState.PiecesInGame.Add(PieceType.Internacionalista);
-                PiecesBasic.Pieces.Remove(PieceType.Internacionalista);
+            case PieceType.Bolchevique:
+                PieceBoard.StartPiecePositions(new Bolchevique(GameState.CurrentPlayer), GameState.CurrentPlayer);
+                Bolchevique.EquipItem = Object.Fusiles;
+                Bolchevique.EquipArmor = Object.CamisaBlanca;
+                Bolchevique.Inventary.Add(Object.Fusiles);
+                Bolchevique.Inventary.Add(Object.CamisaBlanca);
+                Bolchevique.Force += ObjectsStats.StatsForce[Object.Fusiles];
+                Bolchevique.Armor += ObjectsStats.StatsArmor[Object.CamisaBlanca];
+                GameState.PiecesInGame.Add(PieceType.Bolchevique);
+                PiecesBasic.Pieces.Remove(PieceType.Bolchevique);
                 break;
             case PieceType.Jinete:
                 PieceBoard.StartPiecePositions(new Jinete(GameState.CurrentPlayer), GameState.CurrentPlayer);

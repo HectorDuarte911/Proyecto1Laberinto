@@ -85,128 +85,110 @@ public class GenerateLabStruct : Board
             yield return pos + dirs[i];
         }
     }
-    public static void PrintLab(CellsType[,] Laberinto, Position pos)
+    public static void PrintLab(CellsType[,] Laberinth, Position pos)
     {
         var canvas = new Canvas(GameState.dim, GameState.dim);
         for (var i = 0; i < canvas.Width; i++)
         {
             for (var j = 0; j < canvas.Width; j++)
             {
-                if(GameState.PieceBoard[i,j].PieceType != PieceType.None && Laberinto[i,j] != CellsType.NoVisible)
+                if(GameState.PieceBoard[i,j].PieceType != PieceType.None && Laberinth[i,j] != CellsType.NoVisible)
                 {
                     switch (GameState.PieceBoard[i,j].PieceType)
                     {
                     case PieceType.Artillero:
-                    canvas.SetPixel(i, j, Color.NavyBlue);
+                    canvas.SetPixel(i, j, Color.Red3);
                     break;
                     case PieceType.Explorador:
                     canvas.SetPixel(i, j, Color.DarkGreen);
                     break;
                     case PieceType.EsclavoLibre:
-                    canvas.SetPixel(i, j, Color.Orange4_1);
+                    canvas.SetPixel(i, j, Color.DarkOrange3);
                     break;
                     case PieceType.General:
-                    canvas.SetPixel(i, j, Color.DeepSkyBlue3_1);
+                    canvas.SetPixel(i, j, Color.LightSkyBlue3);
                     break;
                     case PieceType.Holguinero:
-                    canvas.SetPixel(i, j, Color.DarkCyan);
+                    canvas.SetPixel(i, j, Color.RoyalBlue1);
                     break;
                     case PieceType.Intelectual:
-                    canvas.SetPixel(i, j, Color.PaleTurquoise1);
+                    canvas.SetPixel(i, j, Color.OrangeRed1);
                     break;
-                    case PieceType.Internacionalista:
-                    canvas.SetPixel(i, j, Color.Red3_1);
+                    case PieceType.Bolchevique:
+                    canvas.SetPixel(i, j, Color.Green3);
                     break;
                     case PieceType.Jinete:
-                    canvas.SetPixel(i, j, Color.SpringGreen4);
+                    canvas.SetPixel(i, j, Color.Teal);
                     break;
                     case PieceType.Soldado:
-                    canvas.SetPixel(i, j, Color.Blue1);
+                    canvas.SetPixel(i, j, Color.Navy);
                     break;
                     case PieceType.Titan:
-                    canvas.SetPixel(i, j, Color.Grey58);
+                    canvas.SetPixel(i, j, Color.Olive);
                     break;
                     case PieceType.Hitman:
-                    canvas.SetPixel(i, j, Color.LightSeaGreen);
+                    canvas.SetPixel(i, j, Color.Purple4);
                     break;
                     case PieceType.Veterano:
-                    canvas.SetPixel(i, j, Color.DeepPink4);
+                    canvas.SetPixel(i, j, Color.LightCyan1);
                     break;
                     }
                 }
-                else if (i == pos.Row && j == pos.Column)
+                else if (i == pos.Row && j == pos.Column        )canvas.SetPixel(i, j, Color.Green);
+                else if (Laberinth[i, j] == CellsType.Wall      )canvas.SetPixel(i, j, Color.DarkRed_1);
+                else if (Laberinth[i, j] == CellsType.portales  )canvas.SetPixel(i, j, Color.Aqua);
+                else if (Laberinth[i, j] == CellsType.NoVisible )canvas.SetPixel(i, j, Color.Black);
+                else if (Laberinth[i, j] == CellsType.Obstaculos)canvas.SetPixel(i, j, Color.Grey39);
+                else if (Laberinth[i,j] == CellsType.Cofre      )canvas.SetPixel(i, j,Color.Orange4);
+                else if (GameState.IsEvent(Laberinth[i, j])     )
                 {
-                    canvas.SetPixel(i, j, Color.Green);
-                }
-                else if (Laberinto[i, j] == CellsType.Wall)
-                {
-                    canvas.SetPixel(i, j, Color.DarkRed_1);
-                }
-                else if (Laberinto[i, j] == CellsType.portales)
-                {
-                    canvas.SetPixel(i, j, Color.Blue3_1);
-                }
-                else if (Laberinto[i, j] == CellsType.NoVisible)
-                {
-                    canvas.SetPixel(i, j, Color.Black);
-                }
-                else if (Laberinto[i, j] == CellsType.Obstaculos)
-                {
-                    canvas.SetPixel(i, j, Color.Orange4);
-                }
-                else if (GameState.IsEvent(Laberinto[i, j]))
-                {
-                    switch(Laberinto[i,j])
+                    switch(Laberinth[i,j])
                     {
                         case CellsType.Final:
-                        canvas.SetPixel(i, j, Color.Purple4);
+                        canvas.SetPixel(i, j, Color.Cornsilk1);
                         break;
                          case CellsType.Cruzado:
-                        canvas.SetPixel(i, j, Color.Gold3);
+                        canvas.SetPixel(i, j, Color.LightCoral);
                         break;
                          case CellsType.CruzadoOscuro:
-                        canvas.SetPixel(i, j, Color.DarkKhaki);
+                        canvas.SetPixel(i, j, Color.RosyBrown);
                         break;
                          case CellsType.Mazero:
-                        canvas.SetPixel(i, j, Color.GreenYellow);
+                        canvas.SetPixel(i, j, Color.Yellow2);
                         break;
                          case CellsType.Monje:
-                        canvas.SetPixel(i, j, Color.DarkOrange3_1);
+                        canvas.SetPixel(i, j, Color.Blue);
                         break;
                          case CellsType.Mercenario:
-                        canvas.SetPixel(i, j, Color.Plum2);
+                        canvas.SetPixel(i, j, Color.Plum1);
                         break;
                          case CellsType.Caballero:
-                        canvas.SetPixel(i, j, Color.Yellow);
+                        canvas.SetPixel(i, j, Color.Maroon);
                         break;
                          case CellsType.CaballeroPesado:
-                        canvas.SetPixel(i, j, Color.LightSteelBlue1);
+                        canvas.SetPixel(i, j, Color.Lime);
                         break; 
                         case CellsType.Ballestero:
-                        canvas.SetPixel(i, j, Color.MistyRose1);
+                        canvas.SetPixel(i, j, Color.Yellow3_1);
                         break;
                          case CellsType.ArqueroLargo:
-                        canvas.SetPixel(i, j, Color.Grey30);
+                        canvas.SetPixel(i, j, Color.DeepPink2);
                         break;
                          case CellsType.Asesino:
-                        canvas.SetPixel(i, j, Color.Olive);
+                        canvas.SetPixel(i, j, Color.BlueViolet);
                         break;
                          case CellsType.Escudero:
-                        canvas.SetPixel(i, j, Color.SandyBrown);
+                        canvas.SetPixel(i, j, Color.HotPink);
                         break;
                          case CellsType.SeñorOscuro:
-                        canvas.SetPixel(i, j, Color.SandyBrown);
+                        canvas.SetPixel(i, j, Color.Orange4_1);
                         break;
                          case CellsType.Truhan:
                         canvas.SetPixel(i, j, Color.SandyBrown);
                         break;
                     }
                 }
-                else
-                {
-                    canvas.SetPixel(i, j, Color.White);
-                }
-                
+                else canvas.SetPixel(i, j, Color.White);
             }
         }
         AnsiConsole.Write(canvas);

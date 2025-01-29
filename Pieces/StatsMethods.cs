@@ -17,8 +17,8 @@ public class StatsMethods :EventsMethods
                 return General.NumberOfMoves;
             case PieceType.Intelectual:
                 return Intelectual.NumberOfMoves;
-            case PieceType.Internacionalista:
-                return Internacionalista.NumberOfMoves;
+            case PieceType.Bolchevique:
+                return Bolchevique.NumberOfMoves;
             case PieceType.Jinete:
                 return Jinete.NumberOfMoves;
             case PieceType.Soldado:
@@ -48,8 +48,8 @@ public class StatsMethods :EventsMethods
                 return General.Armor;
             case PieceType.Intelectual:
                 return Intelectual.Armor;
-            case PieceType.Internacionalista:
-                return Internacionalista.Armor;
+            case PieceType.Bolchevique:
+                return Bolchevique.Armor;
             case PieceType.Jinete:
                 return Jinete.Armor;
             case PieceType.Soldado:
@@ -112,8 +112,8 @@ public class StatsMethods :EventsMethods
                 return General.Force;
             case PieceType.Intelectual:
                 return Intelectual.Force;
-            case PieceType.Internacionalista:
-                return Internacionalista.Force;
+            case PieceType.Bolchevique:
+                return Bolchevique.Force;
             case PieceType.Jinete:
                 return Jinete.Force;
             case PieceType.Soldado:
@@ -143,8 +143,8 @@ public class StatsMethods :EventsMethods
                 return General.Visibility;
             case PieceType.Intelectual:
                 return Intelectual.Visibility;
-            case PieceType.Internacionalista:
-                return Internacionalista.Visibility;
+            case PieceType.Bolchevique:
+                return Bolchevique.Visibility;
             case PieceType.Jinete:
                 return Jinete.Visibility;
             case PieceType.Soldado:
@@ -174,8 +174,8 @@ public class StatsMethods :EventsMethods
                 return Holguinero.EquipItem;
             case PieceType.Intelectual:
                 return Intelectual.EquipItem;
-            case PieceType.Internacionalista:
-                return Internacionalista.EquipItem;
+            case PieceType.Bolchevique:
+                return Bolchevique.EquipItem;
             case PieceType.Jinete:
                 return Jinete.EquipItem;
             case PieceType.Soldado:
@@ -205,8 +205,8 @@ public class StatsMethods :EventsMethods
                 return Holguinero.EquipArmor;
             case PieceType.Intelectual:
                 return Intelectual.EquipArmor;
-            case PieceType.Internacionalista:
-                return Internacionalista.EquipArmor;
+            case PieceType.Bolchevique:
+                return Bolchevique.EquipArmor;
             case PieceType.Jinete:
                 return Jinete.EquipArmor;
             case PieceType.Soldado:
@@ -248,9 +248,9 @@ public class StatsMethods :EventsMethods
                 if (Intelectual.Force < 0) Intelectual.Force = 0;
                 if (Intelectual.Armor < 0) Intelectual.Armor = 0;
                 break;
-            case PieceType.Internacionalista:
-                if (Internacionalista.Force < 0) Internacionalista.Force = 0;
-                if (Internacionalista.Armor < 0) Internacionalista.Armor = 0;
+            case PieceType.Bolchevique:
+                if (Bolchevique.Force < 0) Bolchevique.Force = 0;
+                if (Bolchevique.Armor < 0) Bolchevique.Armor = 0;
                 break;
             case PieceType.Jinete:
                 if (Jinete.Force < 0) Jinete.Force = 0;

@@ -50,6 +50,17 @@ public class GenerateLabForm : GenerateLabStruct
     CellsType.None,
     CellsType.None,
     CellsType.None,
+    CellsType.None,
+    CellsType.None,
+    CellsType.None,
+    CellsType.None,
+    CellsType.None,
+    CellsType.None,
+    CellsType.None,
+    CellsType.None,
+    CellsType.None,
+    CellsType.None,
+    CellsType.None,
     CellsType.Obstaculos,
    };
     public static bool IsCompleteVisited(bool[,] visited)
@@ -156,7 +167,7 @@ public class GenerateLabForm : GenerateLabStruct
                 if (GameState.Board[i, j] == CellsType.None && !PieceBoard.IsAPiece(new Position(i, j)))
                 {
                     Random random = new Random();
-                    int r = random.Next(0, 19);
+                    int r = random.Next(0, 30);
                     GameState.Board[i, j] = ObstacleChance[r];
                 }
             }

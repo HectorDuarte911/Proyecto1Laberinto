@@ -1,7 +1,6 @@
-using System.Reflection.Metadata;
 using Spectre.Console;
 namespace ProjectLogic;
-public class FightMethods :ObjectMethods
+public class FightMethods : ObjectMethods
 {
     public static bool FightAction(bool flag, Position fightpostion, Position aux, bool fightflag)
     {
@@ -41,6 +40,12 @@ public class FightMethods :ObjectMethods
                     break;
                 case TurnActions.abandonar:
                     flee = true;
+                    break;
+                case TurnActions.InfoJuego:
+                    GameState.InfoGame();
+                    break;
+                case TurnActions.PlayerPieceView:
+                    GameState.PlayerPieceView();
                     break;
             }
         }

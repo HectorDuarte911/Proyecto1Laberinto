@@ -40,8 +40,8 @@ public class HabilitysMethods :TrampsMethods
             case PieceType.Holguinero:
                 HabilityName = Holguinero.HabilityName;
                 break;
-            case PieceType.Internacionalista:
-                HabilityName = Internacionalista.HabilityName;
+            case PieceType.Bolchevique:
+                HabilityName = Bolchevique.HabilityName;
                 break;
             case PieceType.Intelectual:
                 HabilityName = Intelectual.HabilityName;
@@ -88,9 +88,9 @@ public class HabilitysMethods :TrampsMethods
                 Intelectual.Hability();
                 break;
             case "Solidaridad":
-                int ActivationTurnInInternacionalista = GameState.Turn + Internacionalista.Coldturns;
-                SetHabilityTurn(GameState.CurrentPlayer, ActivationTurnInInternacionalista);
-                Internacionalista.Hability();
+                int ActivationTurnInBolchevique = GameState.Turn + Bolchevique.Coldturns;
+                SetHabilityTurn(GameState.CurrentPlayer, ActivationTurnInBolchevique);
+                Bolchevique.Hability();
                 break;
             case "Cargar":
                 int ActivationTurnJinete = GameState.Turn + Jinete.Coldturns;
@@ -130,8 +130,8 @@ public class HabilitysMethods :TrampsMethods
             case PieceType.Intelectual:
                 Intelectual.EnableHability();
                 break;
-            case PieceType.Internacionalista:
-                Internacionalista.EnableHability();
+            case PieceType.Bolchevique:
+                Bolchevique.EnableHability();
                 break;
             case PieceType.Jinete:
                 Jinete.EnableHability();

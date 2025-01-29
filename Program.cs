@@ -6,31 +6,32 @@ public class Program
     {
         while (true)
         {
-            Thread hiloMusica = new Thread(GameState.PlayAudio);
-            hiloMusica.Start();
+            Thread music = new Thread(GameState.PlayAudio);
+            music.Start();
             bool flag = true, Activation = false;
+            bool end = false;
             while (flag)
             {
                 Console.Clear();
                 int leftspace = (Console.WindowWidth / 2) - 20;
                 AnsiConsole.Markup(@"[DarkGoldenrod]
-                               ▄████  ▒█████  ▓█████▄   ██████     ██▓ ██▀███   ▒█████   ███▄    █    ▄▄▄█████▓▓█████   ██████ ▄▄▄█████▓
-                               ██▒ ▀█▒▒██▒  ██▒▒██▀ ██▌▒██    ▒    ▓██▒▓██ ▒ ██▒▒██▒  ██▒ ██ ▀█   █    ▓  ██▒ ▓▒▓█   ▀ ▒██    ▒ ▓  ██▒ ▓▒
-                              ▒██░▄▄▄░▒██░  ██▒░██   █▌░ ▓██▄      ▒██▒▓██ ░▄█ ▒▒██░  ██▒▓██  ▀█ ██▒   ▒ ▓██░ ▒░▒███   ░ ▓██▄   ▒ ▓██░ ▒░
-                              ░▓█  ██▓▒██   ██░░▓█▄   ▌  ▒   ██▒   ░██░▒██▀▀█▄  ▒██   ██░▓██▒  ▐▌██▒   ░ ▓██▓ ░ ▒▓█  ▄   ▒   ██▒░ ▓██▓ ░ 
-                              ░▒▓███▀▒░ ████▓▒░░▒████▓ ▒██████▒▒   ░██░░██▓ ▒██▒░ ████▓▒░▒██░   ▓██░     ▒██▒ ░ ░▒████▒▒██████▒▒  ▒██▒ ░ [/]
-                          [DarkRed_1]    ░▒   ▒ ░ ▒░▒░▒░  ▒▒▓  ▒ ▒ ▒▓▒ ▒ ░   ░▓  ░ ▒▓ ░▒▓░░ ▒░▒░▒░ ░ ▒░   ▒ ▒      ▒ ░░   ░░ ▒░ ░▒ ▒▓▒ ▒ ░  ▒ ░░   
-                              ░   ░   ░ ▒ ▒░  ░ ▒  ▒ ░ ░▒  ░ ░    ▒ ░  ░▒ ░ ▒░  ░ ▒ ▒░ ░ ░░   ░ ▒░       ░     ░ ░  ░░ ░▒  ░ ░    ░    
-                              ░ ░   ░ ░ ░ ░ ▒   ░ ░  ░ ░  ░  ░      ▒ ░  ░░   ░ ░ ░ ░ ▒     ░   ░ ░      ░         ░   ░  ░  ░    ░      
-                              ░     ░ ░     ░          ░      ░     ░         ░ ░           ░                ░  ░      ░           [/]");
+                                             ▄████  ▒█████  ▓█████▄   ██████     ██▓ ██▀███   ▒█████   ███▄    █    ▄▄▄█████▓▓█████   ██████ ▄▄▄█████▓
+                                             ██▒ ▀█▒▒██▒  ██▒▒██▀ ██▌▒██    ▒    ▓██▒▓██ ▒ ██▒▒██▒  ██▒ ██ ▀█   █    ▓  ██▒ ▓▒▓█   ▀ ▒██    ▒ ▓  ██▒ ▓▒
+                                            ▒██░▄▄▄░▒██░  ██▒░██   █▌░ ▓██▄      ▒██▒▓██ ░▄█ ▒▒██░  ██▒▓██  ▀█ ██▒   ▒ ▓██░ ▒░▒███   ░ ▓██▄   ▒ ▓██░ ▒░
+                                            ░▓█  ██▓▒██   ██░░▓█▄   ▌  ▒   ██▒   ░██░▒██▀▀█▄  ▒██   ██░▓██▒  ▐▌██▒   ░ ▓██▓ ░ ▒▓█  ▄   ▒   ██▒░ ▓██▓ ░ 
+                                            ░▒▓███▀▒░ ████▓▒░░▒████▓ ▒██████▒▒   ░██░░██▓ ▒██▒░ ████▓▒░▒██░   ▓██░     ▒██▒ ░ ░▒████▒▒██████▒▒  ▒██▒ ░ [/]
+                                        [DarkRed_1]    ░▒   ▒ ░ ▒░▒░▒░  ▒▒▓  ▒ ▒ ▒▓▒ ▒ ░   ░▓  ░ ▒▓ ░▒▓░░ ▒░▒░▒░ ░ ▒░   ▒ ▒      ▒ ░░   ░░ ▒░ ░▒ ▒▓▒ ▒ ░  ▒ ░░   
+                                            ░   ░   ░ ▒ ▒░  ░ ▒  ▒ ░ ░▒  ░ ░    ▒ ░  ░▒ ░ ▒░  ░ ▒ ▒░ ░ ░░   ░ ▒░       ░     ░ ░  ░░ ░▒  ░ ░    ░    
+                                            ░ ░   ░ ░ ░ ░ ▒   ░ ░  ░ ░  ░  ░      ▒ ░  ░░   ░ ░ ░ ░ ▒     ░   ░ ░      ░         ░   ░  ░  ░    ░      
+                                            ░     ░ ░     ░          ░      ░     ░         ░ ░           ░                ░  ░      ░           [/]");
                 Console.WriteLine("\n");
                 var obtions = new[] {
-                new string (' ',leftspace ) + "[DarkGoldenrod]       CARGAR PARTIDA       [/]" + '\n',
-                new string (' ',leftspace ) + "[DarkGoldenrod]       OBCIÓN PARTIDA       [/]" + '\n',
-                new string (' ',leftspace ) + "[DarkGoldenrod]       INFORM JUGADOR       [/]" + '\n',
-                new string (' ',leftspace ) + "[DarkGoldenrod]           SALIR            [/]" + '\n'};
+                new string (' ',leftspace ) + "[DarkGoldenrod]           CARGAR PARTIDA       [/]" + '\n',
+                new string (' ',leftspace ) + "[DarkGoldenrod]           OBCIÓN PARTIDA       [/]" + '\n',
+                new string (' ',leftspace ) + "[DarkGoldenrod]           INFORM JUGADOR       [/]" + '\n',
+                new string (' ',leftspace ) + "[DarkGoldenrod]               SALIR            [/]" + '\n'};
                 var MenuElection = AnsiConsole.Prompt(new SelectionPrompt<string>()
-                .Title(new string(' ', leftspace) + "[yellow]             MENUS            [/]")
+                .Title(new string(' ', leftspace) + "[yellow]                 MENUS            [/]")
                 .PageSize(4)
                 .HighlightStyle(new Style(foreground: Color.Red))
                 .AddChoices(obtions));
@@ -38,21 +39,26 @@ public class Program
                 {
                     if (NoDoingActions.Confirm("Estás seguro que quieres salir del juego ?") == 'y')
                     {
-                        Console.Clear(); break;
+                        Console.Clear();end = true; break;
                     }
                 }
-                if (MenuElection == obtions[2]) GameState.InfoJuego();
+                if (MenuElection == obtions[2]) GameState.InfoGame();
                 if (MenuElection == obtions[1])
                 {
                     if (NoDoingActions.Confirm("Estás seguro que quieres seleccionar las Obciones de Partida ?") == 'y') GameState.GameObcions();
                 }
                 if (MenuElection == obtions[0])
                 {
-                    if (NoDoingActions.Confirm("Estás seguro de empezar las partida con estos datos de generacion ?") == 'y')
+                    if (NoDoingActions.Confirm("Estás seguro de empezar la partida con estos datos de generación ?") == 'y')
                     {
                         Console.Clear(); flag = false;
                     }
                 }
+            }
+            if(end)
+            {
+                GameState.StopAudio();
+                break;
             }
             flag = true;
             GenerateLabStruct.StartLaberinth(1);
@@ -69,9 +75,12 @@ public class Program
             HabilitysMethods.SetHabilityTurn(Player.SegundoJugador, 1);
             if (GameState.IsInGame(Player.TercerJugador)) HabilitysMethods.SetHabilityTurn(Player.TercerJugador, 1);
             if (GameState.IsInGame(Player.CuartoJugador)) HabilitysMethods.SetHabilityTurn(Player.CuartoJugador, 1);
-            GameState.StopAudio();
             while (GameState.Winner == Player.None)
             {
+                GameState.StopAudio();
+                GameState.MusicChange();
+                Thread music2 = new Thread(GameState.PlayAudio);
+                music2.Start();
                 if (GameState.IsInGame(Player.PrimerJugador))
                 {
                     if (GameState.CurrentPlayer == Player.PrimerJugador) GameState.Turn++;
@@ -105,7 +114,6 @@ public class Program
                 }
                 while (flag)
                 {
-                   
                     GameState.Continue();
                     if (GameState.VariantActivation && (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Artillero ||
                      (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Intelectual && Intelectual.HabilityName == Explorador.HabilityName)) &&
@@ -212,6 +220,12 @@ public class Program
                             break;
                         case TurnActions.ActivarPortal:
                             if (NoDoingActions.Confirm("Estás seguro que desea selecionar la acción ¨Activar Portal¨") == 'y') flag = GameState.PortalActivation(flag);
+                            break;
+                        case TurnActions.InfoJuego:
+                            GameState.InfoGame();
+                            break;
+                        case TurnActions.PlayerPieceView:
+                            GameState.PlayerPieceView();
                             break;
                     }
                     if (GameState.PlayerPieceBasic(GameState.CurrentPlayer).Inventary != null)

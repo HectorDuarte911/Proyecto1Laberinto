@@ -1,7 +1,7 @@
 namespace ProjectLogic;
 using Spectre.Console;
 using NAudio.Wave;
-public class GameState :PlayerMethods
+public class GameState : PlayerMethods
 {
     public static Board Board { get; set; } = new Board();
     public static PieceBoard PieceBoard { get; set; } = new PieceBoard();
@@ -9,8 +9,9 @@ public class GameState :PlayerMethods
     public static Player Winner = Player.None;
     public static int NumberPLayer = 2, dim = 33, Turn = 0, ActivationAux = 0;
     public static bool VariantActivation = false;
-    static WaveOutEvent outputDevice;
-    static AudioFileReader audioFile;
+    public static WaveOutEvent outputDevice;
+    public static AudioFileReader audioFile;
+    public static string audio = "audio/pista inicio.mp3";
     public static bool isPlaying = true, Trivial = true;
     public static List<PieceType> PiecesInGame = new List<PieceType>();
     public static List<Player> PlayersInGame = new List<Player>()
@@ -30,8 +31,8 @@ public class GameState :PlayerMethods
         while (isPlaying)
         {
             string projectDir = Directory.GetCurrentDirectory();
-            string rute = Path.Combine(projectDir,"audio/pista 1.mp3");
-            audioFile = new AudioFileReader(rute);  
+            string rute = Path.Combine(projectDir, audio);
+            audioFile = new AudioFileReader(rute);
             outputDevice = new WaveOutEvent();
             outputDevice.Init(audioFile);
             outputDevice.Play();
@@ -52,34 +53,46 @@ public class GameState :PlayerMethods
             outputDevice.Dispose();
         }
     }
-    public static void InfoJuego()
+    public static void InfoGame()
     {
+        int leftspace = (Console.WindowWidth / 2) - 20;
         string[] obtions = {
-            "                   [DarkGoldenrod]       LORE              [/]",
-            "                   [DarkGoldenrod]      LEYENDA            [/]",
-            "                   [DarkGoldenrod]  PIEZAS DEL JUEGO       [/]",
-            "                   [DarkGoldenrod]SALIR A MENÚ PRINCIPAL   [/]"
-        };
+            new string (' ',leftspace ) +"                  LORE",
+            new string (' ',leftspace ) +"                 LEGEND",
+            new string (' ',leftspace ) +"            PIEZAS DEL JUEGO",
+            new string (' ',leftspace ) +"      SALIR DE IFORMACIÓN DE JUEGO"
+        };                       
         while (true)
         {
+            
             string election = AnsiConsole.Prompt(new SelectionPrompt<string>()
-            .Title("[yelllow]  Información DE Jugador   [/]")
             .PageSize(5)
-            .HighlightStyle(new Style(foreground: Spectre.Console.Color.Red))
+            .HighlightStyle(new Style(foreground: Color.Red))
             .AddChoices(obtions));
             AnsiConsole.MarkupLineInterpolated($"[red]Has seleccionado la obción {election}[/]");
             if (election == obtions[3]) break;
-            if (election == obtions[2]) SeeLore();
+            if (election == obtions[0]) SeeLore();
             if (election == obtions[1]) SeeLeyend();
-            if (election == obtions[0]) SeePieceOfGame();
+            if (election == obtions[2]) SeePieceOfGame();
+            Console.ReadKey();
+            Console.Clear();
         }
     }
     public static void SeeLore()
     {
-        string Lore = @"[DarkGoldenrod][/]";
+        string Lore = @"[DarkGoldenrod]
+        En un tiempo y espacio desconocido varios portales se habrieron hacia un laberinto,los portales salieron grandes representaciones de         
+        la historia desde los tiempos medievales hasta el siglo XX. Tú eres una de estas  peculiares  personas quese  encuentran confundidas         
+        y en cuanto despertaste de tú inconsiencia quisiste saber la situación. Un mensaje está  grabado en un  cartel  que te informa de la         
+        razón por la cual has sido traido al laberinto . Esta es una prueba de Dios para ver que  combatiente  es más habilidosa en salir de         
+        este laberinto .Solo se salvará uno por lo que debes apresurarte y tomar todo lo que tengas en el camino para ganar fuerza  y  salir         
+        de este inmundo lugar .Debes tener cuidado con las trampas , pensar en si es viable  quitar un  obstáculo del camino,arriesgarte con         
+        los cofres , probar suerte con los portales,vencer a enemigos poderosos y si deseas acabar con otros jugadores de este juego divino.         
+        BUENA SUERTE :D
+                 [/]";
         var panel = new Panel(Lore);
         panel.Border = BoxBorder.Heavy;
-        panel.BorderColor(Spectre.Console.Color.Red);
+        panel.BorderColor(Color.Red);
         AnsiConsole.Write(panel);
     }
     public static void SeeLeyend()
@@ -88,38 +101,38 @@ public class GameState :PlayerMethods
         table.AddColumn("[red]Color[/]");
         table.AddColumn(new TableColumn("[red]Nombre[/]").Centered());
         table.AddColumn(new TableColumn("[red]Tipo[/]").Centered());
-        table.AddRow($"[red]Rojo[/]", "Arquero Largo", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Artillero", "Pieza");
-        table.AddRow($"[red]Rojo[/]", "Asesino", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Ballestero", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Caballero", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Caballero Pesado", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Cofre", "Celda");
-        table.AddRow($"[red]Rojo[/]", "Cruzado", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Cruzado Oscuro", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Esclavo Libre", "Pieza");
-        table.AddRow($"[red]Rojo[/]", "Escudero", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Explorador", "Pieza");
-        table.AddRow($"[red]Rojo[/]", "Final de Laberinto", "Evento");
-        table.AddRow($"[red]Rojo[/]", "General", "Pieza");
-        table.AddRow($"[red]Rojo[/]", "Hitman", "Pieza");
-        table.AddRow($"[red]Rojo[/]", "Holguinero", "Pieza");
-        table.AddRow($"[red]Rojo[/]", "Intelectual", "Pieza");
-        table.AddRow($"[red]Rojo[/]", "Internacionalista", "Pieza");
-        table.AddRow($"[red]Rojo[/]", "Jinete", "Pieza");
-        table.AddRow($"[red]Rojo[/]", "Mazero", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Mercenario", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Monje", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Nada", "Celda");
-        table.AddRow($"[red]Rojo[/]", "Obstáculo", "Celda");
+        table.AddRow($"[deeppink2]Rosado Oscuro[/]", "Arquero Largo", "Evento");
+        table.AddRow($"[red3]Rojo[/]", "Artillero", "Pieza");
+        table.AddRow($"[blueviolet]Morado Azulado[/]", "Asesino", "Evento");
+        table.AddRow($"[yellow3_1]Amarillo Oscuro[/]", "Ballestero", "Evento");
+        table.AddRow($"[maroon]Marrón[/]", "Caballero", "Evento");
+        table.AddRow($"[lime]Lima[/]", "Caballero Pesado", "Evento");
+        table.AddRow($"[orange4]Bosque[/]", "Cofre", "Celda");
+        table.AddRow($"[lightcoral]Salmóm[/]", "Cruzado", "Evento");
+        table.AddRow($"[rosybrown]Carmelita Pieloso[/]", "Cruzado Oscuro", "Evento");
+        table.AddRow($"[darkorange3]Naranja Oscuro[/]", "Esclavo Libre", "Pieza");
+        table.AddRow($"[hotpink]Rosado[/]", "Escudero", "Evento");
+        table.AddRow($"[darkgreen]Verde Oscuro[/]", "Explorador", "Pieza");
+        table.AddRow($"[cornsilk1]Maíz[/]", "Final de Laberinto", "Evento");
+        table.AddRow($"[lightskyblue3]Azul Cielo[/]", "General", "Pieza");
+        table.AddRow($"[purple4]Morado[/]", "Hitman", "Pieza");
+        table.AddRow($"[royalblue1]Azul Real[/]", "Holguinero", "Pieza");
+        table.AddRow($"[orangered1]Naranja[/]", "Intelectual", "Pieza");
+        table.AddRow($"[green3]Verde[/]", "Bolchevique", "Pieza");
+        table.AddRow($"[teal]Teal[/]", "Jinete", "Pieza");
+        table.AddRow($"[yellow2]Amarillo[/]", "Mazero", "Evento");
+        table.AddRow($"[plum1]Algodón Azucar[/]", "Mercenario", "Evento");
+        table.AddRow($"[blue]Azul Medio[/]", "Monje", "Evento");
+        table.AddRow($"[white]Blanco[/]", "Nada", "Celda");
+        table.AddRow($"[grey39]Gris[/]", "Obstáculo", "Celda");
         table.AddRow($"[Darkred]Rojo Oscuro[/]", "Pared", "Celda");
-        table.AddRow($"[]Rojo[/]", "Portal", "Celda");
-        table.AddRow($"[red]Rojo[/]", "Señor Oscuro", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Soldado", "Pieza");
-        table.AddRow($"[red]Rojo[/]", "Titán", "Pieza");
-        table.AddRow($"[red]Rojo[/]", "Truhán", "Evento");
-        table.AddRow($"[red]Rojo[/]", "Veterano", "Pieza");
-        table.BorderColor(Spectre.Console.Color.DarkGoldenrod);
+        table.AddRow($"[aqua]Aqua[/]", "Portal", "Celda");
+        table.AddRow($"[orange4_1]Carmelita[/]", "Señor Oscuro", "Evento");
+        table.AddRow($"[navy]Azul Marina[/]", "Soldado", "Pieza");
+        table.AddRow($"[olive]Olivo[/]", "Titán", "Pieza");
+        table.AddRow($"[sandybrown]Arena[/]", "Truhán", "Evento");
+        table.AddRow($"[lightcyan1]Cyan[/]", "Veterano", "Pieza");
+        table.BorderColor(Color.DarkGoldenrod);
         AnsiConsole.Write(table);
     }
     public static void SeePieceOfGame()
@@ -139,7 +152,7 @@ public class GameState :PlayerMethods
             "Hitman",
             "Holguinero",
             "Intelectual",
-            "Internacionalista",
+            "Bolchevique",
             "Soldado",
             "Jinete",
             "Titan",
@@ -183,7 +196,7 @@ public class GameState :PlayerMethods
                 case "Titan":
                     table.AddRow("[DarkGoldenrod]5[/]", "[DarkGoldenrod]6[/]", "[DarkGoldenrod]4[/]", "[DarkGoldenrod]4[/]", "[DarkGoldenrod]Machete Curvo(4)[/]", "[DarkGoldenrod]Camisa Blanca(2)[/]", "[DarkGoldenrod]27 o 28[/]", "[DarkGoldenrod]Te permite ganar 4 de fuerza durante tu turno[/]", "[DarkGoldenrod]2[/]").Centered();
                     break;
-                case "Internacionalista":
+                case "Bolchevique":
                     table.AddRow("[DarkGoldenrod]4[/]", "[DarkGoldenrod]4[/]", "[DarkGoldenrod]4[/]", "[DarkGoldenrod]4[/]", "[DarkGoldenrod]Fusil(3)[/]", "[DarkGoldenrod]Camisa Blanca(2)[/]", "[DarkGoldenrod]Soliridad[/]", "[DarkGoldenrod]Te permite ganar uno extra de movimiento ese turno por cada jugador en juego[/]", "[DarkGoldenrod]2[/]").Centered();
                     break;
                 case "Jinete":
@@ -195,7 +208,7 @@ public class GameState :PlayerMethods
                 case "Veterano":
                     table.AddRow("[DarkGoldenrod]4[/]", "[DarkGoldenrod]3[/]", "[DarkGoldenrod]4[/]", "[DarkGoldenrod]4[/]", "[DarkGoldenrod]Machete Corto(3)[/]", "[DarkGoldenrod]Camisa Blanca(2)[/]", "[DarkGoldenrod]Juego Limpio[/]", "[DarkGoldenrod]Te permite ver la ubicación de todas  los trampas[/]", "[DarkGoldenrod]2[/]").Centered();
                     break;
-                case "[DarkGoldenrod]Salir[/]":
+                case "Salir":
                     flag = false;
                     break;
             }
@@ -397,5 +410,61 @@ public class GameState :PlayerMethods
         panel.Border = BoxBorder.Rounded;
         panel.BorderColor(Color.Blue);
         AnsiConsole.Write(panel);
+    }
+    public static void PlayerPieceView()
+    {
+        Table table = new Table();
+        table.AddColumn("[yellow]Infirmación del Jugador[/]");
+        table.AddRow($"[red]Fuerza : {GetForce(PlayerPieceBasic(CurrentPlayer), CellsType.None)}[/]");
+        table.AddRow($"[red]Armadura : {GetArmor(PlayerPieceBasic(CurrentPlayer), CellsType.None)}[/]");
+        table.AddRow($"[red]Cantidad de movimientos por turno : {GetNumberOfMove(PlayerPieceBasic(CurrentPlayer))}[/]");
+        table.AddRow($"[red]Movimientos sin hacer : {GetNumberOfMove(PlayerPieceBasic(CurrentPlayer)) - PiecesBasic.NumberOfMovesDoing}[/]");
+        table.AddRow($"[red]Arma Equipada: {GetEquipItem(PlayerPieceBasic(CurrentPlayer))}[/]");
+        table.AddRow($"[red]Armadura Equipada: {GetEquipArmor(PlayerPieceBasic(CurrentPlayer))}[/]");
+        table.BorderColor(Color.DarkGoldenrod);
+        AnsiConsole.Write(table);
+    }
+    public static void MusicChange()
+    {
+        switch (PlayerPieceBasic(CurrentPlayer).PieceType)
+        {
+            case PieceType.Artillero:
+                audio = "audio/pista artillero.mp3";
+                break;
+            case PieceType.EsclavoLibre:
+                audio = "audio/pista esclavo libre.mp3";
+                break;
+            case PieceType.Explorador:
+                audio = "audio/pista explorador.mp3";
+                break;
+            case PieceType.General:
+                audio = "audio/pista general.mp3";
+                break;
+            case PieceType.Intelectual:
+                audio = "audio/pista intelectual.mp3";
+                break;
+            case PieceType.Hitman:
+                audio = "audio/pista hitman.mp3";
+                break;
+            case PieceType.Jinete:
+                audio = "audio/pista jinete.mp3";
+                break;
+            case PieceType.Soldado:
+                audio = "audio/pista soldado.mp3";
+                break;
+            case PieceType.Titan:
+                audio = "audio/pista titan.mp3";
+                break;
+            case PieceType.Veterano:
+                audio = "audio/pista veterano.mp3";
+                break;
+            case PieceType.Holguinero:
+                audio = "audio/pista holguinero.mp3";
+                break;
+            case PieceType.Bolchevique:
+                audio = "audio/pista bolchevique.mp3";
+                break;
+        }
+        isPlaying = true;
     }
 }

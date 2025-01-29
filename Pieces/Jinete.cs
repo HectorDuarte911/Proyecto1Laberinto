@@ -10,13 +10,13 @@ public class Jinete : PiecesBasic
   public static new List<Object> Inventary = new List<Object>();
   public static void Hability()
   {
-    if (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Internacionalista) Force += NumberOfMovesDoing / 2;
+    if (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Jinete) Force += NumberOfMovesDoing / 2;
     else Intelectual.Force += NumberOfMovesDoing / 2;
     GameState.ActivationAux = NumberOfMovesDoing / 2;
   }
   public static void EnableHability()
   {
-    if (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Internacionalista) Force -= GameState.ActivationAux;
+    if (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Jinete) Force -= GameState.ActivationAux;
     else Intelectual.Force -= GameState.ActivationAux;
   }
   public static new string HabilityName => "Cargar";

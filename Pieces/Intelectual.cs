@@ -39,7 +39,7 @@ public class Intelectual : PiecesBasic
     GameState.timer.Enabled = true;
     string selection = AnsiConsole.Prompt(new SelectionPrompt<string>()
     .Title($"[DarkGoldenrod]{Question.QuesionsTexts[Question.QuestionsInGame[r]]}[/]")
-    .PageSize(4)
+    .PageSize(6)
     .HighlightStyle(new Style(foreground: Spectre.Console.Color.Green))
     .AddChoices(Question.Elections[Question.QuestionsInGame[r]]));
     AnsiConsole.MarkupLineInterpolated($"A seleccionado [DarkGoldenrod]{selection}[/]");
@@ -63,7 +63,7 @@ public class Intelectual : PiecesBasic
     if (Correcto)
     {
       string HabilitySelection = AnsiConsole.Prompt(new SelectionPrompt<string>()
-     .Title($"[DarkGoldenrod]Selecciona que habilidad desea posseer[/]")
+     .Title($"[DarkGoldenrod]Selecciona que habilidad desea poseer[/]")
      .PageSize(11)
      .HighlightStyle(new Style(foreground: Color.Green))
      .AddChoices(
@@ -72,7 +72,7 @@ public class Intelectual : PiecesBasic
        Explorador.HabilityName,
        General.HabilityName,
        Holguinero.HabilityName,
-       Internacionalista.HabilityName,
+       Bolchevique.HabilityName,
        Jinete.HabilityName,
        Soldado.HabilityName,
        Titan.HabilityName,
@@ -99,8 +99,8 @@ public class Intelectual : PiecesBasic
     {
       switch (piece)
       {
-        case PieceType.Internacionalista:
-          if (Internacionalista.HabilityName == HabilityName) Internacionalista.EnableHability();
+        case PieceType.Bolchevique:
+          if (Bolchevique.HabilityName == HabilityName) Bolchevique.EnableHability();
           break;
         case PieceType.Jinete:
           if (Jinete.HabilityName == HabilityName) Jinete.EnableHability();

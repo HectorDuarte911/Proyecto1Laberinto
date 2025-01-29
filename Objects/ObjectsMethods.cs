@@ -1,6 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class ObjectMethods :HabilitysMethods
+public class ObjectMethods : HabilitysMethods
 {
     public static void SeeInventary()
     {
@@ -65,13 +65,13 @@ public class ObjectMethods :HabilitysMethods
                     StatsWeight.Add($"{ObjectsStats.StatsWeight[Intelectual]}");
                 }
                 break;
-            case PieceType.Internacionalista:
-                foreach (Object Internacionalista in Internacionalista.Inventary)
+            case PieceType.Bolchevique:
+                foreach (Object Bolchevique in Bolchevique.Inventary)
                 {
-                    StatsObjets.Add($"{Internacionalista}");
-                    StatsForce.Add($"{ObjectsStats.StatsForce[Internacionalista]} ");
-                    StatsArmor.Add($"{ObjectsStats.StatsArmor[Internacionalista]}");
-                    StatsWeight.Add($"{ObjectsStats.StatsWeight[Internacionalista]}");
+                    StatsObjets.Add($"{Bolchevique}");
+                    StatsForce.Add($"{ObjectsStats.StatsForce[Bolchevique]} ");
+                    StatsArmor.Add($"{ObjectsStats.StatsArmor[Bolchevique]}");
+                    StatsWeight.Add($"{ObjectsStats.StatsWeight[Bolchevique]}");
                 }
                 break;
             case PieceType.Jinete:
@@ -157,9 +157,9 @@ public class ObjectMethods :HabilitysMethods
                         List<Object> Items = new List<Object>();
                         foreach (Object Object in GetInventary(GameState.CurrentPlayer))
                         {
-                            if (GameState.IsItem(Object))Items.Add(Object);
+                            if (GameState.IsItem(Object)) Items.Add(Object);
                         }
-                        if (!ISEmpty(Items))AddItem(Items);
+                        if (!ISEmpty(Items)) AddItem(Items);
                         else
                         {
                             var panel = new Panel($"[red]No posees armas disponibles para equipar[/]");
@@ -177,7 +177,7 @@ public class ObjectMethods :HabilitysMethods
                         {
                             if (GameState.IsArmor(Object)) Armors.Add(Object);
                         }
-                        if (!ISEmpty(Armors))AddArmor(Armors);
+                        if (!ISEmpty(Armors)) AddArmor(Armors);
                         else
                         {
                             var panel = new Panel($"[red]No posees armaduras disponibles para equipar[/]");
@@ -205,6 +205,12 @@ public class ObjectMethods :HabilitysMethods
                 case TurnActions.DescartarObjeto:
                     if (NoDoingActions.Confirm("Estas seguro que quieres descartar algún objeto ?") == 'y') DiscartObject();
                     break;
+                case TurnActions.InfoJuego:
+                    GameState.InfoGame();
+                    break;
+                case TurnActions.PlayerPieceView:
+                    GameState.PlayerPieceView();
+                    break;
             }
         }
     }
@@ -224,8 +230,8 @@ public class ObjectMethods :HabilitysMethods
                 return Holguinero.Inventary;
             case PieceType.Intelectual:
                 return Intelectual.Inventary;
-            case PieceType.Internacionalista:
-                return Internacionalista.Inventary;
+            case PieceType.Bolchevique:
+                return Bolchevique.Inventary;
             case PieceType.Jinete:
                 return Jinete.Inventary;
             case PieceType.Soldado:
@@ -284,8 +290,8 @@ public class ObjectMethods :HabilitysMethods
                     case PieceType.Intelectual:
                         Intelectual.Inventary.Add(Object);
                         break;
-                    case PieceType.Internacionalista:
-                        Internacionalista.Inventary.Add(Object);
+                    case PieceType.Bolchevique:
+                        Bolchevique.Inventary.Add(Object);
                         break;
                     case PieceType.Jinete:
                         Jinete.Inventary.Add(Object);
@@ -342,8 +348,8 @@ public class ObjectMethods :HabilitysMethods
             case PieceType.Intelectual:
                 Intelectual.Inventary.Remove(Object);
                 break;
-            case PieceType.Internacionalista:
-                Internacionalista.Inventary.Remove(Object);
+            case PieceType.Bolchevique:
+                Bolchevique.Inventary.Remove(Object);
                 break;
             case PieceType.Jinete:
                 Jinete.Inventary.Remove(Object);
@@ -395,10 +401,10 @@ public class ObjectMethods :HabilitysMethods
                     Intelectual.Armor -= ObjectsStats.StatsArmor[Intelectual.EquipItem];
                     Intelectual.EquipItem = Object.none;
                     break;
-                case PieceType.Internacionalista:
-                    Internacionalista.Force -= ObjectsStats.StatsForce[Internacionalista.EquipItem];
-                    Internacionalista.Armor -= ObjectsStats.StatsArmor[Internacionalista.EquipItem];
-                    Internacionalista.EquipItem = Object.none;
+                case PieceType.Bolchevique:
+                    Bolchevique.Force -= ObjectsStats.StatsForce[Bolchevique.EquipItem];
+                    Bolchevique.Armor -= ObjectsStats.StatsArmor[Bolchevique.EquipItem];
+                    Bolchevique.EquipItem = Object.none;
                     break;
                 case PieceType.Jinete:
                     Jinete.Force -= ObjectsStats.StatsForce[Jinete.EquipItem];
@@ -461,10 +467,10 @@ public class ObjectMethods :HabilitysMethods
                     Intelectual.Armor -= ObjectsStats.StatsForce[Intelectual.EquipArmor];
                     Intelectual.EquipArmor = Object.none;
                     break;
-                case PieceType.Internacionalista:
-                    Internacionalista.Force -= ObjectsStats.StatsForce[Internacionalista.EquipArmor];
-                    Internacionalista.Armor -= ObjectsStats.StatsForce[Internacionalista.EquipArmor];
-                    Internacionalista.EquipArmor = Object.none;
+                case PieceType.Bolchevique:
+                    Bolchevique.Force -= ObjectsStats.StatsForce[Bolchevique.EquipArmor];
+                    Bolchevique.Armor -= ObjectsStats.StatsForce[Bolchevique.EquipArmor];
+                    Bolchevique.EquipArmor = Object.none;
                     break;
                 case PieceType.Jinete:
                     Jinete.Force -= ObjectsStats.StatsForce[Jinete.EquipArmor];
@@ -495,7 +501,6 @@ public class ObjectMethods :HabilitysMethods
         }
         GameState.NoNegativeStats(type);
     }
-   
     public static bool ISEmpty(List<Object> Inventary)
     {
         foreach (Object Object in Inventary)
@@ -544,10 +549,10 @@ public class ObjectMethods :HabilitysMethods
                 Intelectual.Force += ObjectsStats.StatsForce[elec] - IntelectualAux;
                 Intelectual.EquipItem = elec;
                 break;
-            case PieceType.Internacionalista:
-                int InternacionalistaAux = ObjectsStats.StatsForce[Internacionalista.EquipItem];
-                Internacionalista.Force += ObjectsStats.StatsForce[elec] - InternacionalistaAux;
-                Internacionalista.EquipItem = elec;
+            case PieceType.Bolchevique:
+                int BolcheviqueAux = ObjectsStats.StatsForce[Bolchevique.EquipItem];
+                Bolchevique.Force += ObjectsStats.StatsForce[elec] - BolcheviqueAux;
+                Bolchevique.EquipItem = elec;
                 break;
             case PieceType.Jinete:
                 int JineteAux = ObjectsStats.StatsForce[Jinete.EquipItem];
@@ -616,10 +621,10 @@ public class ObjectMethods :HabilitysMethods
                 Intelectual.Armor += ObjectsStats.StatsArmor[elec] - IntelectualAux;
                 Intelectual.EquipArmor = elec;
                 break;
-            case PieceType.Internacionalista:
-                int InternacionalistaAux = ObjectsStats.StatsArmor[Internacionalista.EquipArmor];
-                Internacionalista.Armor += ObjectsStats.StatsArmor[elec] - InternacionalistaAux;
-                Internacionalista.EquipArmor = elec;
+            case PieceType.Bolchevique:
+                int BolcheviqueAux = ObjectsStats.StatsArmor[Bolchevique.EquipArmor];
+                Bolchevique.Armor += ObjectsStats.StatsArmor[elec] - BolcheviqueAux;
+                Bolchevique.EquipArmor = elec;
                 break;
             case PieceType.Jinete:
                 int JineteAux = ObjectsStats.StatsArmor[Jinete.EquipArmor];

@@ -24,29 +24,36 @@ public enum TurnActions
     EMPEZARPARTIDA,
     OBCCIONESPARTIDA,
     DescartarObjeto,
+    PlayerPieceView,
 }
 public class NoDoingActions
 {
     public static List<TurnActions> UndoingActions = new List<TurnActions>()
    {
+    TurnActions.PlayerPieceView,
+    TurnActions.InfoJuego,
     TurnActions.Caminar,
     TurnActions.ObcionesEquipo,
     TurnActions.TerminarTurno,
    };
     public static List<TurnActions> FightActions = new List<TurnActions>()
    {
+    TurnActions.PlayerPieceView,
     TurnActions.atacar,
+    TurnActions.InfoJuego,
     TurnActions.ObcionesEquipo,
     TurnActions.abandonar,
    };
     public static List<TurnActions> EquipActions = new List<TurnActions>()
    {
+    TurnActions.PlayerPieceView,
     TurnActions.EquiparArma,
     TurnActions.EquiparArmadura,
     TurnActions.VerCaracteristicasDeObjetos,
     TurnActions.CerrarEquipo,
     TurnActions.MirarEquipo,
     TurnActions.DescartarObjeto,
+    TurnActions.InfoJuego
    };
     public static void AjustAction(TurnActions TurnActions)
     {
