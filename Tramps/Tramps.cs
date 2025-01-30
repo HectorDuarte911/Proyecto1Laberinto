@@ -1,5 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
+//All this class represents the tramps of the game .Have a type and a penalty
 public class TrampaMosquitera
 {
     public CellsType Type = CellsType.TrampaMosquitera;
@@ -72,7 +73,7 @@ public class RanaSorpresa
 }
 public class TrampsMethods :StatsMethods
 {
-    public static void SetTrampPenalty(CellsType Type)
+    public static void SetTrampPenalty(CellsType Type)//This method set a penalty of a trap
     {
         switch (Type)
         {

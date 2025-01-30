@@ -1,6 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class Truhan : Events
+public class Truhan : Events//Espesifications in Event class
 {
     public override CellsType Type => CellsType.Truhan;
     public override Player Player => Player.None;

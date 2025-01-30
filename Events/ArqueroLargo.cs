@@ -1,6 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class ArqueroLargo : Events
+public class ArqueroLargo : Events//Espesifications in Event class
 {
     public override CellsType Type => CellsType.ArqueroLargo;
     public override Player Player => Player.None;

@@ -1,6 +1,7 @@
 namespace ProjectLogic;
 public class PlayerMethods : PieceMethods
 {
+    //Return the next player 
     public static Player NextPlayer(Player CurrentPlayer)
     {
         switch (CurrentPlayer)
@@ -28,6 +29,7 @@ public class PlayerMethods : PieceMethods
         }
         return Player.None;
     }
+    //Asing the name to the player
     public static void PlayerName(Player player, string name)
     {
         switch (player)
@@ -46,6 +48,7 @@ public class PlayerMethods : PieceMethods
                 break;
         }
     }
+    //Return the player name
     public static string PlayerNameShow(Player player)
     {
         switch (player)
@@ -61,6 +64,7 @@ public class PlayerMethods : PieceMethods
             default: return string.Empty;
         }
     }
+    //Asing the rest state to a player
     public static void SetRestState(Player player, bool asign)
     {
         switch (player)
@@ -79,6 +83,7 @@ public class PlayerMethods : PieceMethods
                 break;
         }
     }
+    //Asing the rest turn to a player
     public static void SetRestTurn(Player player, int turns)
     {
         switch (player)

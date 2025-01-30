@@ -1,7 +1,7 @@
 namespace ProjectLogic;
 using Spectre.Console;
 using System.Timers;
-public class Intelectual : PiecesBasic
+public class Intelectual : PiecesBasic//All espesifications in PieceBasic class exept the hability
 {
   public override PieceType PieceType => PieceType.Intelectual;
   public override Player Number { get; }
@@ -25,7 +25,7 @@ public class Intelectual : PiecesBasic
     GameState.timer.Enabled = false;
   }
   public static new List<Object> Inventary = new List<Object>();
-  public static void Hability()
+  public static void Hability()//This hability only activate his beneficent effect when the player anwser a question in correct mode in no more than 15s if the player do ith then can change his hability 
   {
     int countQuestion = 0;
     foreach (QuestionsName question in Question.QuestionsInGame)
@@ -40,7 +40,7 @@ public class Intelectual : PiecesBasic
     string selection = AnsiConsole.Prompt(new SelectionPrompt<string>()
     .Title($"[DarkGoldenrod]{Question.QuesionsTexts[Question.QuestionsInGame[r]]}[/]")
     .PageSize(6)
-    .HighlightStyle(new Style(foreground: Spectre.Console.Color.Green))
+    .HighlightStyle(new Style(foreground: Color.Green))
     .AddChoices(Question.Elections[Question.QuestionsInGame[r]]));
     AnsiConsole.MarkupLineInterpolated($"A seleccionado [DarkGoldenrod]{selection}[/]");
     StopTimer();

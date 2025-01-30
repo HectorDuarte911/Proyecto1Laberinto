@@ -2,6 +2,7 @@ namespace ProjectLogic;
 using Spectre.Console;
 public class ObjectMethods : HabilitysMethods
 {
+    //Print a table whith all your objects and stats
     public static void SeeInventary()
     {
         var table = new Table();
@@ -132,10 +133,11 @@ public class ObjectMethods : HabilitysMethods
         }
         AnsiConsole.Write(table);
     }
+    //Methond to equip obtions
     public static void EquipOptions(bool flag)
     {
         while (flag)
-        {
+        {   
             TurnActions election = AnsiConsole.Prompt(new SelectionPrompt<TurnActions>()
             .Title("[DarkGoldenrod]Escoja que acción realizar[/]:")
             .PageSize(12)
@@ -214,6 +216,7 @@ public class ObjectMethods : HabilitysMethods
             }
         }
     }
+    //Get the inventary of a piece whith a reference
     public static List<Object> GetInventary(Player player)
     {
         switch (GameState.PlayerPieceBasic(player).PieceType)
@@ -245,6 +248,7 @@ public class ObjectMethods : HabilitysMethods
         }
         throw new ArgumentException("");
     }
+    //Discart one object and decrese a weight of that object
     public static void DiscartObject()
     {
         var DiscartElection = AnsiConsole.Prompt(new SelectionPrompt<Object>()
@@ -261,6 +265,7 @@ public class ObjectMethods : HabilitysMethods
         else if (GameState.GetEquipArmor(GameState.PlayerPieceBasic(GameState.CurrentPlayer)) == DiscartElection) AjustObject(GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType, GameState.GetEquipArmor(GameState.PlayerPieceBasic(GameState.CurrentPlayer)));
         RemoveObject(GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType, DiscartElection);
     }
+    //Add one object to the piece inventary
     public static void AddObject(Object Object)
     {
         while (true)
@@ -323,6 +328,7 @@ public class ObjectMethods : HabilitysMethods
         }
         GameState.PlayerPieceBasic(GameState.CurrentPlayer).WeightInventary += ObjectsStats.StatsWeight[Object];
     }
+    //Remove one object from a inventary of a piece
     public static void RemoveObject(PieceType type, Object Object)
     {
         switch (type)
@@ -365,6 +371,7 @@ public class ObjectMethods : HabilitysMethods
                 break;
         }
     }
+    //Ajust stats of the piece after a change of object
     public static void AjustObject(PieceType type, Object Object)
     {
         if (GameState.IsItem(Object))
@@ -501,6 +508,7 @@ public class ObjectMethods : HabilitysMethods
         }
         GameState.NoNegativeStats(type);
     }
+    //Comprobation of the emptynes of a inventary
     public static bool ISEmpty(List<Object> Inventary)
     {
         foreach (Object Object in Inventary)
@@ -509,6 +517,7 @@ public class ObjectMethods : HabilitysMethods
         }
         return true;
     }
+    //Equip a Item to a piece
     public static void AddItem(List<Object> Items)
     {
         Object elec = AnsiConsole.Prompt(new SelectionPrompt<Object>()
@@ -581,6 +590,7 @@ public class ObjectMethods : HabilitysMethods
                 break;
         }
     }
+    //Equip a Armor to a piece
     public static void AddArmor(List<Object> Armors)
     {
         Object elec = AnsiConsole.Prompt(new SelectionPrompt<Object>()

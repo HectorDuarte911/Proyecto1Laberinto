@@ -1,7 +1,7 @@
 using Spectre.Console;
 
 namespace ProjectLogic;
-public class EsclavoLibre : PiecesBasic
+public class EsclavoLibre : PiecesBasic//All espesifications in PieceBasic class exept the hability
 {
   public override PieceType PieceType => PieceType.EsclavoLibre;
   public override Player Number { get; }
@@ -10,7 +10,7 @@ public class EsclavoLibre : PiecesBasic
     Number = number;
   }
   public static new List<Object> Inventary = new List<Object>();
-  public static void Hability()
+  public static void Hability()//Increse the force of the equip item in all the ocurrense permanently include if the equip item is none
   {
     if (EquipItem == Object.none)
     {

@@ -11,7 +11,7 @@ public class FightMethods : ObjectMethods
         string winner = "ninguno";
         while (!flee && winner == "ninguno")
         {
-            TurnActions election = AnsiConsole.Prompt(new SelectionPrompt<TurnActions>()
+            TurnActions election = AnsiConsole.Prompt(new SelectionPrompt<TurnActions>()//Choose the actions in the fight
             .Title("[red]Escoja que acción realizar:[/]")
             .PageSize(12)
             .HighlightStyle(new Style(foreground: Color.Red))
@@ -24,27 +24,27 @@ public class FightMethods : ObjectMethods
             else defArmorEvent = GameState.GetArmor(new None(), GameState.Board[fightpostion]);
             switch (election)
             {
-                case TurnActions.atacar:
+                case TurnActions.atacar://Do the atack and declare a result
                     if (atacforce == defArmorPlayer + defArmorEvent) winner = "Empate";
                     else if (atacforce < defArmorPlayer + defArmorEvent) winner = $"{enemyplayer}";
                     else winner = $"{GameState.CurrentPlayer}";
                     break;
-                case TurnActions.ObcionesEquipo:
+                case TurnActions.ObcionesEquipo://Go to equip obtions
                     GameState.EquipOptions(flag);
                     flag = true;
                     break;
-                case TurnActions.ActivarHabilidad:
+                case TurnActions.ActivarHabilidad://If you can activate hability
                     Explorador.Hability(GameState.PieceBoard[GameState.PositionPiece(enemyplayer)]);
                     int ActivationTurnExploeador = GameState.Turn + Explorador.Coldturns;
                     GameState.SetHabilityTurn(GameState.CurrentPlayer, ActivationTurnExploeador);
                     break;
-                case TurnActions.abandonar:
+                case TurnActions.abandonar://Leave the battle
                     flee = true;
                     break;
-                case TurnActions.InfoJuego:
+                case TurnActions.InfoJuego://Go to info of the game
                     GameState.InfoGame();
                     break;
-                case TurnActions.PlayerPieceView:
+                case TurnActions.PlayerPieceView://See your piece stats
                     GameState.PlayerPieceView();
                     break;
             }
@@ -58,6 +58,7 @@ public class FightMethods : ObjectMethods
             AnsiConsole.Write(panel);
             Player RestPlayer = Player.None;
             Player WinnerPlayer = Player.None;
+            //See the posible results and do put to rest the loser
             if (winner == $"{enemyplayer}")
             {
                 RestPlayer = GameState.CurrentPlayer;

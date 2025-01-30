@@ -2,6 +2,7 @@ namespace ProjectLogic;
 using Spectre.Console;
 public class HabilitysMethods :TrampsMethods
 {
+    //Asing the hability turn to a player 
     public static void SetHabilityTurn(Player player, int activationTurn)
     {
         switch (player)
@@ -20,6 +21,7 @@ public class HabilitysMethods :TrampsMethods
                 break;
         }
     }
+    //Asing the hability name and activate the hability to a player piece
     public static void AsingHability(PieceType pieceType)
     {
         string HabilityName = string.Empty;
@@ -123,6 +125,7 @@ public class HabilitysMethods :TrampsMethods
         Panel.BorderColor(Color.Green);
         AnsiConsole.Write(Panel);
     }
+    //Desactivate the hability  
     public static void NegateHability(PieceType pieceType)
     {
         switch (pieceType)
@@ -141,6 +144,7 @@ public class HabilitysMethods :TrampsMethods
                 break;
         }
     }
+    //Increse the activation turn by one 
     public static void ActivationTurnPlus()
     {
         switch (GameState.CurrentPlayer)

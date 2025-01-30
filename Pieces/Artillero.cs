@@ -1,5 +1,5 @@
 namespace ProjectLogic;
-public class Artillero : PiecesBasic
+public class Artillero : PiecesBasic//All espesifications in PieceBasic class exept the hability
 {
   public override PieceType PieceType => PieceType.Artillero;
   public override Player Number { get; }
@@ -8,7 +8,7 @@ public class Artillero : PiecesBasic
     Number = number;
   }
   public static new List<Object> Inventary = new List<Object>();
-  public static void Hability()
+  public static void Hability()//Change the value of the variant of activation than add a espesific action in the program class 
   {
     GameState.VariantActivation = true;
   }

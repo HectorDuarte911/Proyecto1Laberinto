@@ -1,14 +1,17 @@
 namespace ProjectLogic;
 public abstract class Events:Program
 {
-  public abstract CellsType Type { get; }
-  public static string Description { get; }
-  public abstract Player Player { get; }
-  public static int Armor { get; set; }
-  public static void Reward(){}
+  
+  public abstract CellsType Type { get; }//Type of event
+  public static string Description { get; }//Message of the event
+  public abstract Player Player { get; }//Player of the event always none
+  public static int Armor { get; set; }//Armor of the event
+  public static void Reward(){}//Reward if you win 
+  //The others archives in this folders are the class of each event than have this same description
 }
 public class EventsMethods
 {
+  //Comprobation if is an event
   public static bool IsEvent(CellsType cellsType)
   {
     return cellsType == CellsType.Cruzado || cellsType == CellsType.CruzadoOscuro || cellsType == CellsType.Escudero || cellsType == CellsType.SeñorOscuro ||
@@ -16,6 +19,7 @@ public class EventsMethods
            cellsType == CellsType.Mercenario || cellsType == CellsType.Monje || cellsType == CellsType.Asesino || cellsType == CellsType.Ballestero ||
            cellsType == CellsType.ArqueroLargo || cellsType == CellsType.Final;
   }
+  //Get the reward of the event to the player piece
   public static Object GetEventReward(CellsType cellsType)
   {
     
@@ -52,6 +56,7 @@ public class EventsMethods
     }
     throw new ArgumentException("");
   }
+  //Asing the description to the actual event 
   public static string AsingDescription(CellsType cellsType)
   {
     switch (cellsType)

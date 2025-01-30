@@ -1,5 +1,5 @@
 namespace ProjectLogic;
-public enum CellsType
+public enum CellsType//Types of cells in game (include events)
 {
     NoVisible,
     None,

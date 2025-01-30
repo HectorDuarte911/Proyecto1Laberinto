@@ -1,6 +1,7 @@
 namespace ProjectLogic;
 public class Position
 {
+  //This asing the row andd column of a position
   public int Row { get; }
   public int Column { get; }
   public Position(int row, int column)
@@ -8,10 +9,12 @@ public class Position
     Row = row;
     Column = column;
   }
+  //the operator to + two positions
   public static Position operator +(Position pos, Direction d)
   {
     return new Position(pos.Row + d.RowDelta, pos.Column + d.ColumnDelta);
   }
+  //Convert a valis string to a position
   public static Position ToPosition(string pos)
   {
     string firstnum = string.Empty;
@@ -31,6 +34,7 @@ public class Position
     }
     return new Position(Toint(firstnum), Toint(secondnum));
   }
+  //Convert a int in format string to a int
   public static int Toint(string num)
   {
     int valorinInt = 0;
@@ -40,6 +44,7 @@ public class Position
     }
     return valorinInt;
   }
+  //Method to pow
   public static int Pow(int bas, int exp)
   {
     if (exp == 0) return 1;

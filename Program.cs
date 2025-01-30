@@ -1,6 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class Program
+public class Program//This is the main class than resive reference of all other class , specially the GamaState class
 {
     public static void Main(string[] args)
     {
@@ -24,7 +24,7 @@ public class Program
                                             ░   ░   ░ ▒ ▒░  ░ ▒  ▒ ░ ░▒  ░ ░    ▒ ░  ░▒ ░ ▒░  ░ ▒ ▒░ ░ ░░   ░ ▒░       ░     ░ ░  ░░ ░▒  ░ ░    ░    
                                             ░ ░   ░ ░ ░ ░ ▒   ░ ░  ░ ░  ░  ░      ▒ ░  ░░   ░ ░ ░ ░ ▒     ░   ░ ░      ░         ░   ░  ░  ░    ░      
                                             ░     ░ ░     ░          ░      ░     ░         ░ ░           ░                ░  ░      ░           [/]");
-                Console.WriteLine("\n");
+                Console.WriteLine("\n");//Obtions of the principal menu
                 var obtions = new[] {
                 new string (' ',leftspace ) + "[DarkGoldenrod]           CARGAR PARTIDA       [/]" + '\n',
                 new string (' ',leftspace ) + "[DarkGoldenrod]           OBCIÓN PARTIDA       [/]" + '\n',
@@ -39,7 +39,7 @@ public class Program
                 {
                     if (NoDoingActions.Confirm("Estás seguro que quieres salir del juego ?") == 'y')
                     {
-                        Console.Clear();end = true; break;
+                        Console.Clear(); end = true; break;
                     }
                 }
                 if (MenuElection == obtions[2]) GameState.InfoGame();
@@ -55,19 +55,19 @@ public class Program
                     }
                 }
             }
-            if(end)
+            if (end)
             {
                 GameState.StopAudio();
                 break;
             }
             flag = true;
-            GenerateLabStruct.StartLaberinth(1);
+            GenerateLabStruct.StartLaberinth(1);//Generate the walls of the maze
             GameState.CurrentPlayer = Player.PrimerJugador;
             do
             {
                 GameState.SelectPiece();
             } while (!(GameState.CurrentPlayer == Player.PrimerJugador));
-            Console.Clear();
+            Console.Clear();//Generate the rest of the maze
             PieceBoard.CompletePiecePositions();
             GenerateLabForm.ObstacleGenerating();
             GenerateLabForm.CompleteLab();
@@ -75,10 +75,10 @@ public class Program
             HabilitysMethods.SetHabilityTurn(Player.SegundoJugador, 1);
             if (GameState.IsInGame(Player.TercerJugador)) HabilitysMethods.SetHabilityTurn(Player.TercerJugador, 1);
             if (GameState.IsInGame(Player.CuartoJugador)) HabilitysMethods.SetHabilityTurn(Player.CuartoJugador, 1);
-            while (GameState.Winner == Player.None)
+            while (GameState.Winner == Player.None)//This while is in action while there is not any winner
             {
                 GameState.StopAudio();
-                GameState.MusicChange();
+                GameState.MusicChange();//Here the music chage when the turn of a player beging
                 Thread music2 = new Thread(GameState.PlayAudio);
                 music2.Start();
                 if (GameState.IsInGame(Player.PrimerJugador))
@@ -89,7 +89,8 @@ public class Program
                 {
                     if (GameState.CurrentPlayer == Player.SegundoJugador) GameState.Turn++;
                 }
-                else if (GameState.CurrentPlayer == Player.TercerJugador) GameState.Turn++;
+                else if (GameState.CurrentPlayer == Player.TercerJugador) GameState.Turn++;//See if the turns increses
+                //Check the actions than the piece can do and the rest state
                 NoDoingActions.UndoingActions.Remove(TurnActions.ActivarHabilidad);
                 if (GameState.ComprobationActivationTurn())
                 {
@@ -112,9 +113,10 @@ public class Program
                 {
                     if (NoDoingActions.Confirm("Quieres realizar una trivia") == 'y') Intelectual.HabilityName = "Trivia";
                 }
-                while (flag)
+                while (flag)//This continue while the player end his turn or surrender
                 {
                     GameState.Continue();
+                    //Modificate the actions of the turn corresponding to the piece and turn
                     if (GameState.VariantActivation && (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Artillero ||
                      (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Intelectual && Intelectual.HabilityName == Explorador.HabilityName)) &&
                      GameState.CanBreakType(CellsType.Wall)) NoDoingActions.UndoingActions.Add(TurnActions.RomperMuro);
@@ -130,12 +132,12 @@ public class Program
                     if (!GameState.IsEmpty(GameState.FightCells()) && !fight && PiecesBasic.NumberOfMovesDoing != StatsMethods.GetNumberOfMove(GameState.PlayerPieceBasic(GameState.CurrentPlayer))) NoDoingActions.UndoingActions.Add(TurnActions.Luchar);
                     var panelposition = new Panel($"[DarkGoldenrod]Estás en la posición [[{GameState.PositionPiece(GameState.CurrentPlayer).Row},{GameState.PositionPiece(GameState.CurrentPlayer).Column}]][/]");
                     panelposition.Border = BoxBorder.Double;
-                    panelposition.BorderColor(Spectre.Console.Color.Red);
+                    panelposition.BorderColor(Color.Red);
                     AnsiConsole.Write(panelposition);
-                    TurnActions election = AnsiConsole.Prompt(new SelectionPrompt<TurnActions>()
+                    TurnActions election = AnsiConsole.Prompt(new SelectionPrompt<TurnActions>()//Select the action than you will do
                     .Title("Escoja que acción realizar:")
                     .PageSize(12)
-                    .HighlightStyle(new Style(foreground: Spectre.Console.Color.Red))
+                    .HighlightStyle(new Style(foreground: Color.Red))
                     .AddChoices(NoDoingActions.UndoingActions));
                     AnsiConsole.MarkupLineInterpolated($"A seleccionado [red]{election}[/]");
                     switch (election)
@@ -228,7 +230,7 @@ public class Program
                             GameState.PlayerPieceView();
                             break;
                     }
-                    if (GameState.PlayerPieceBasic(GameState.CurrentPlayer).Inventary != null)
+                    if (GameState.PlayerPieceBasic(GameState.CurrentPlayer).Inventary != null)//This comprove if the player have the key of victory in his inventary to win the game
                     {
                         foreach (Object Object in GameState.PlayerPieceBasic(GameState.CurrentPlayer).Inventary)
                         {
@@ -240,6 +242,7 @@ public class Program
                             }
                         }
                     }
+                    //Adjust the actions
                     NoDoingActions.UndoingActions.Remove(TurnActions.Luchar);
                     NoDoingActions.UndoingActions.Remove(TurnActions.ActivarHabilidad);
                     if (PiecesBasic.NumberOfMovesDoing == StatsMethods.GetNumberOfMove(GameState.PlayerPieceBasic(GameState.CurrentPlayer))) NoDoingActions.UndoingActions.Remove(TurnActions.Caminar);
@@ -252,6 +255,7 @@ public class Program
                         if (!flag) HabilitysMethods.ActivationTurnPlus();
                     }
                 }
+                //Ajust the parameters in the end of the turn
                 NoDoingActions.UndoingActions.Remove(TurnActions.RomperMuro);
                 if (Activation)
                 {
@@ -270,6 +274,26 @@ public class Program
                 if (surrender) surrender = false;
                 else GameState.CurrentPlayer = GameState.NextPlayer(GameState.CurrentPlayer);
                 flag = true;
+            }
+            if (GameState.Winner != Player.None)//Final Message if any player win
+            {
+                Console.Clear();
+                GameState.StopAudio();
+                GameState.audio = "audio/pista inicio.mp3";
+                Thread music2 = new Thread(GameState.PlayAudio);
+                music2.Start();
+                AnsiConsole.Markup(@"[DarkGoldenrod]
+                                              ██░ ██  ▄▄▄        ██████      ▄████  ▄▄▄      ███▄    █  ▄▄▄      ▓█████▄  ▒█████  
+                                                ▓██░ ██▒▒████▄    ▒██    ▒     ██▒ ▀█▒▒████▄    ██ ▀█   █ ▒████▄    ▒██▀ ██▌▒██▒  ██▒
+                                                ▒██▀▀██░▒██  ▀█▄  ░ ▓██▄      ▒██░▄▄▄░▒██  ▀█▄ ▓██  ▀█ ██▒▒██  ▀█▄  ░██   █▌▒██░  ██▒
+                                                ░▓█ ░██ ░██▄▄▄▄██   ▒   ██▒   ░▓█  ██▓░██▄▄▄▄██▓██▒  ▐▌██▒░██▄▄▄▄██ ░▓█▄   ▌▒██   ██░
+                                               ░▓█▒░██▓ ▓█   ▓██▒▒██████▒▒   ░▒▓███▀▒ ▓█   ▓██▒██░   ▓██░ ▓█   ▓██▒░▒████▓ ░ ████▓▒░[/][DarkRed_1]
+                                                 ▒ ░░▒░▒ ▒▒   ▓▒█░▒ ▒▓▒ ▒ ░    ░▒   ▒  ▒▒   ▓▒█░ ▒░   ▒ ▒  ▒▒   ▓▒█░ ▒▒▓  ▒ ░ ▒░▒░▒░ 
+                                                 ▒ ░▒░ ░  ▒   ▒▒ ░░ ░▒  ░ ░     ░   ░   ▒   ▒▒ ░ ░░   ░ ▒░  ▒   ▒▒ ░ ░ ▒  ▒   ░ ▒ ▒░ 
+                                                 ░  ░░ ░  ░   ▒   ░  ░  ░     ░ ░   ░   ░   ▒     ░   ░ ░   ░   ▒    ░ ░  ░ ░ ░ ░ ▒  
+                                                 ░  ░  ░      ░  ░      ░           ░       ░  ░        ░       ░  ░   ░        ░ ░  
+                                                                                                            ░    [/]           
+                    ");
             }
         }
     }

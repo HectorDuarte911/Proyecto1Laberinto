@@ -2,6 +2,7 @@ namespace ProjectLogic;
 using Spectre.Console;
 public class Chest
 {
+    //Put a ramdom efect in a chest
     public static void RamdomActivation()
     {
         int k =0;
@@ -31,6 +32,7 @@ public class Chest
             break;
         }
     }
+    //List of posible object in a chest
     public static List<Object> PosibleObjects = new List<Object>()
     {
     Object.Magnum,
@@ -58,6 +60,7 @@ public class Chest
     Object.MangoPodrido,
     Object.ArmaduraPuntiaguda,
     };
+    //Methonds than increse an decrese stats
     public static void ForceUp()
     {
         GameState.PlayerPieceBasic(GameState.CurrentPlayer).Force++;

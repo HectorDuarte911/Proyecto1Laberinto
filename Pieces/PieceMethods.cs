@@ -1,18 +1,12 @@
 namespace ProjectLogic;
 public class PieceMethods:PositionMethods
 {
-    public static bool IsValidPick(PieceType Piece)
-    {
-        foreach (PieceType piece in PiecesBasic.Pieces)
-        {
-            if (Piece == piece) return true;
-        }
-        return false;
-    }
+    //Method to get the piece of a espesific player
     public static PiecesBasic PlayerPieceBasic(Player player)
     {
         return GameState.PieceBoard[GameState.PositionPiece(player)];
     }
+    //Method to choose the piece from the game for each player
     public static void PickPiece(PieceType election)
     {
         switch (election)

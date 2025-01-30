@@ -2,6 +2,7 @@ namespace ProjectLogic;
 using Spectre.Console;
 public class GenerateLabForm : GenerateLabStruct
 {
+    //List of the remain types of cells to fill the maze
     public static List<CellsType> RamdomCellsBuilding = new List<CellsType>()
    {
     CellsType.None,
@@ -28,41 +29,10 @@ public class GenerateLabForm : GenerateLabStruct
     CellsType.Mercenario,
     CellsType.Mazero,
     CellsType.SeñorOscuro,
-    CellsType.Cofre
+    CellsType.Cofre,
+    CellsType.Cofre,
    };
-    public static List<CellsType> ObstacleChance = new List<CellsType>()
-   {
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.None,
-    CellsType.Obstaculos,
-   };
+    //Comprobation yhan all the positions are visited
     public static bool IsCompleteVisited(bool[,] visited)
     {
         for (int i = 0; i < visited.GetLength(0); i++)
@@ -74,9 +44,10 @@ public class GenerateLabForm : GenerateLabStruct
         }
         return true;
     }
+    //Method than fill the maze with a cell in the list in a ramdom position
     public static void CompleteLab()
     {
-        int leght = 25;
+        int leght = 26;
         int trampcount = 0;
         bool[,] visited = new bool[GameState.dim, GameState.dim];
         for (int i = 0; i < GameState.dim; i++)
@@ -158,6 +129,7 @@ public class GenerateLabForm : GenerateLabStruct
             GameState.Board[WallCells[r]] = CellsType.None;
         }
     }
+    //This Methond generate the obstacle with a ramdom number
     public static void ObstacleGenerating()
     {
         for (int i = 1; i < GameState.dim - 1; i++)
@@ -168,7 +140,9 @@ public class GenerateLabForm : GenerateLabStruct
                 {
                     Random random = new Random();
                     int r = random.Next(0, 30);
-                    GameState.Board[i, j] = ObstacleChance[r];
+                    CellsType randcell = CellsType.None;
+                    if (r == 1) randcell = CellsType.Obstaculos;
+                    GameState.Board[i, j] = randcell;
                 }
             }
         }

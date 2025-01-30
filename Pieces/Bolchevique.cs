@@ -1,5 +1,5 @@
 namespace ProjectLogic;
-public class Bolchevique : PiecesBasic
+public class Bolchevique : PiecesBasic//All espesifications in PieceBasic class exept the hability
 {
   public override PieceType PieceType => PieceType.Bolchevique;
   public override Player Number { get; }
@@ -8,7 +8,7 @@ public class Bolchevique : PiecesBasic
     Number = number;
   }
   public static new List<Object> Inventary = new List<Object>();
-  public static void Hability()
+  public static void Hability()//Hability than activete this turn and cancel it efect in the end of the turn with the EnableHability method
   {
     if (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Bolchevique)
       NumberOfMoves += GameState.NumberPLayer;

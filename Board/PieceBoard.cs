@@ -1,8 +1,9 @@
 namespace ProjectLogic;
 public class PieceBoard
 {
+    //Board than contains the pieces of the game
     public static PiecesBasic[,] Laberinth = new PiecesBasic[GameState.dim, GameState.dim];
-
+    //This are links from the position class to th piece board
     public PiecesBasic this[int row, int col]
     {
         get { return Laberinth[row, col]; }
@@ -13,6 +14,7 @@ public class PieceBoard
         get { return this[pos.Row, pos.Column]; }
         set { this[pos.Row, pos.Column] = value; }
     }
+    //Put the pieces in the corners of the maze
     public static void StartPiecePositions(PiecesBasic piece, Player player)
     {
         switch (player)
@@ -31,6 +33,7 @@ public class PieceBoard
                 break;
         }
     }
+    //Put the others position whith no pieces in none
     public static void CompletePiecePositions()
     {
         for (int i = 0; i < GameState.dim; i++)
@@ -43,6 +46,7 @@ public class PieceBoard
             }
         }
     }
+ //Comprobation to know if in the position is a piece
     public static bool IsAPiece(Position pos)
     {
         if (GameState.PieceBoard[pos] != null) return GameState.PieceBoard[pos].PieceType != PieceType.None;

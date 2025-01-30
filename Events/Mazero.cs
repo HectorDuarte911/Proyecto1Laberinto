@@ -1,6 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class Mazero : Events
+public class Mazero : Events//Espesifications in Event class
 {
     public override CellsType Type => CellsType.Mazero;
     public override Player Player => Player.None;

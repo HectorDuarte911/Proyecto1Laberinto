@@ -2,6 +2,8 @@ namespace ProjectLogic;
 using Spectre.Console;
 public class GenerateLabStruct : Board
 {
+    //This methond is the one who create the walls of the maze ,resive a density (always one because if better whith that number) and create wall
+    // whith an algorithm than from a initial position see 2 cells of distanse ,if is empty put a wall in that position and the position between 
     public static void StartLaberinth(int density)
     {
         int Walls = density * 8;
@@ -36,47 +38,8 @@ public class GenerateLabStruct : Board
                 }
             }
         }
-        int[] rowX = { 2, 2, GameState.dim - 3, GameState.dim - 3 };
-        int[] rowY = { 2, GameState.dim - 3, 2, GameState.dim - 3 };
-        Direction[] dirs = Move.dirs;
-        int k = 0;
-        while (k < 4)
-        {
-            int i = rowX[k];
-            int j = rowY[k];
-            for (int l = 2; l <= GameState.dim - 3; l++)
-            {
-                if (k == 0 || k == 3) i = l;
-                else j = l;
-                if (GameState.Board[i, j] == CellsType.None)
-                {
-                    int count = 0;
-                    foreach (Position pos in AdyacentCells(new Position(i, j)))
-                    {
-                        if (GameState.Board[pos.Row, pos.Column] == CellsType.Wall) count++;
-                    }
-                    if (count == 3 || (count == 2 && (GameState.Board[i, j + 1] == GameState.Board[i + 1, j] && GameState.Board[i + 1, j] == CellsType.Wall ||
-                    GameState.Board[i, j - 1] == GameState.Board[i + 1, j] && GameState.Board[i + 1, j] == CellsType.Wall ||
-                    GameState.Board[i, j + 1] == GameState.Board[i + 1, j] && GameState.Board[i - 1, j] == CellsType.Wall ||
-                    GameState.Board[i, j - 1] == GameState.Board[i + 1, j] && GameState.Board[i - 1, j] == CellsType.Wall)))
-                    {
-                        while (true)
-                        {
-                            Random random = new Random();
-                            int r = random.Next(0, dirs.Length);
-                            Position position = new Position(i, j) + dirs[r];
-                            if (GameState.Board[position.Row, position.Column] == CellsType.Wall)
-                            {
-                                GameState.Board[position.Row, position.Column] = CellsType.None;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            k++;
-        }
     }
+    //Return the positions on the principal directions adyacents from a position
     public static IEnumerable<Position> AdyacentCells(Position pos)
     {
         Direction[] dirs = Move.dirs;
@@ -85,6 +48,7 @@ public class GenerateLabStruct : Board
             yield return pos + dirs[i];
         }
     }
+    //Print the Maze
     public static void PrintLab(CellsType[,] Laberinth, Position pos)
     {
         var canvas = new Canvas(GameState.dim, GameState.dim);

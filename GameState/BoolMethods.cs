@@ -1,6 +1,7 @@
 namespace ProjectLogic;
 public class BoolMethods : FightMethods
 {
+    //Comprove if the parameter no violate the conditions in the names ofthe methonds
     public static bool IsInGame(Player player)
     {
         foreach (Player player1 in GameState.PlayersInGame)

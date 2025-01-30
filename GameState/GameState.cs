@@ -1,32 +1,33 @@
 namespace ProjectLogic;
 using Spectre.Console;
 using NAudio.Wave;
-public class GameState : PlayerMethods
+public class GameState : PlayerMethods//This class represent the state of the game and all the class whith method in its names response to this class
 {
-    public static Board Board { get; set; } = new Board();
-    public static PieceBoard PieceBoard { get; set; } = new PieceBoard();
-    public static Player CurrentPlayer { get; set; }
-    public static Player Winner = Player.None;
-    public static int NumberPLayer = 2, dim = 33, Turn = 0, ActivationAux = 0;
-    public static bool VariantActivation = false;
+    public static Board Board { get; set; } = new Board();//Current board
+    public static PieceBoard PieceBoard { get; set; } = new PieceBoard();//Current piece board
+    public static Player CurrentPlayer { get; set; }//Current player
+    public static Player Winner = Player.None;//Actual winner
+    public static int NumberPLayer = 2, dim = 33, Turn = 0, ActivationAux = 0;//Number of player , dimension , actual turn and auxiliar
+    public static bool VariantActivation = false;//Variant of activation  to see if the player have the extra action
+    //This filds are the ones who play the music   
     public static WaveOutEvent outputDevice;
     public static AudioFileReader audioFile;
-    public static string audio = "audio/pista inicio.mp3";
     public static bool isPlaying = true, Trivial = true;
-    public static List<PieceType> PiecesInGame = new List<PieceType>();
-    public static List<Player> PlayersInGame = new List<Player>()
+    public static string audio = "audio/pista inicio.mp3";//Current audio playing
+    public static List<PieceType> PiecesInGame = new List<PieceType>();//Actual piece in game
+    public static List<Player> PlayersInGame = new List<Player>()//Actual list of players in game
     {
     Player.PrimerJugador,
     Player.SegundoJugador,
     };
-    public GameState(Player player, Board board, PieceBoard pieceboard)
+    public GameState(Player player, Board board, PieceBoard pieceboard)//Constructor
     {
         Board = board;
         PieceBoard = pieceboard;
         CurrentPlayer = player;
     }
-    public static System.Timers.Timer timer = new System.Timers.Timer(15000);
-    public static void PlayAudio()
+    public static System.Timers.Timer timer = new System.Timers.Timer(15000);//Global timer
+    public static void PlayAudio()//Method to play the audio
     {
         while (isPlaying)
         {
@@ -44,7 +45,7 @@ public class GameState : PlayerMethods
             outputDevice.Dispose();
         }
     }
-    public static void StopAudio()
+    public static void StopAudio()//Method to stop the audio
     {
         isPlaying = false;
         if (outputDevice != null)
@@ -53,7 +54,50 @@ public class GameState : PlayerMethods
             outputDevice.Dispose();
         }
     }
-    public static void InfoGame()
+    public static void MusicChange()//Method to change the audio
+    {
+        switch (PlayerPieceBasic(CurrentPlayer).PieceType)
+        {
+            case PieceType.Artillero:
+                audio = "audio/pista artillero.mp3";
+                break;
+            case PieceType.EsclavoLibre:
+                audio = "audio/pista esclavo libre.mp3";
+                break;
+            case PieceType.Explorador:
+                audio = "audio/pista explorador.mp3";
+                break;
+            case PieceType.General:
+                audio = "audio/pista general.mp3";
+                break;
+            case PieceType.Intelectual:
+                audio = "audio/pista intelectual.mp3";
+                break;
+            case PieceType.Hitman:
+                audio = "audio/pista hitman.mp3";
+                break;
+            case PieceType.Jinete:
+                audio = "audio/pista jinete.mp3";
+                break;
+            case PieceType.Soldado:
+                audio = "audio/pista soldado.mp3";
+                break;
+            case PieceType.Titan:
+                audio = "audio/pista titan.mp3";
+                break;
+            case PieceType.Veterano:
+                audio = "audio/pista veterano.mp3";
+                break;
+            case PieceType.Holguinero:
+                audio = "audio/pista holguinero.mp3";
+                break;
+            case PieceType.Bolchevique:
+                audio = "audio/pista bolchevique.mp3";
+                break;
+        }
+        isPlaying = true;
+    }
+    public static void InfoGame()//Method to elect the obtion of the info of the game
     {
         int leftspace = (Console.WindowWidth / 2) - 20;
         string[] obtions = {
@@ -61,10 +105,10 @@ public class GameState : PlayerMethods
             new string (' ',leftspace ) +"                 LEGEND",
             new string (' ',leftspace ) +"            PIEZAS DEL JUEGO",
             new string (' ',leftspace ) +"      SALIR DE IFORMACIÓN DE JUEGO"
-        };                       
+        };
         while (true)
         {
-            
+
             string election = AnsiConsole.Prompt(new SelectionPrompt<string>()
             .PageSize(5)
             .HighlightStyle(new Style(foreground: Color.Red))
@@ -78,7 +122,7 @@ public class GameState : PlayerMethods
             Console.Clear();
         }
     }
-    public static void SeeLore()
+    public static void SeeLore()//Obtion to see the lore
     {
         string Lore = @"[DarkGoldenrod]
         En un tiempo y espacio desconocido varios portales se habrieron hacia un laberinto,los portales salieron grandes representaciones de         
@@ -95,7 +139,7 @@ public class GameState : PlayerMethods
         panel.BorderColor(Color.Red);
         AnsiConsole.Write(panel);
     }
-    public static void SeeLeyend()
+    public static void SeeLeyend()//Obtion to see the legend in a table
     {
         var table = new Table();
         table.AddColumn("[red]Color[/]");
@@ -135,7 +179,7 @@ public class GameState : PlayerMethods
         table.BorderColor(Color.DarkGoldenrod);
         AnsiConsole.Write(table);
     }
-    public static void SeePieceOfGame()
+    public static void SeePieceOfGame()//Obtion to see the pieces stats in a table
     {
         bool flag = true;
         while (flag)
@@ -220,13 +264,13 @@ public class GameState : PlayerMethods
             else break;
         }
     }
-    public static void GameObcions()
+    public static void GameObcions()//Obtion to choose the configuration of the game
     {
         Console.Clear();
         NumberPLayer = AnsiConsole.Prompt(new SelectionPrompt<int>()
         .Title("Elija la cantidad de jugadores:")
         .PageSize(3)
-        .HighlightStyle(new Style(foreground: Spectre.Console.Color.Red))
+        .HighlightStyle(new Style(foreground: Color.Red))
         .AddChoices(2, 3, 4));
         AnsiConsole.MarkupLineInterpolated($"A seleccionado [red]{NumberPLayer} jugadores [/]");
         Console.Clear();
@@ -258,12 +302,12 @@ public class GameState : PlayerMethods
         if (LabDim == obtionsDim[2]) { dim = 81; }
         Console.Clear();
     }
-    public static void SelectPiece()
+    public static void SelectPiece()//Method to select the piece of each player
     {
         PieceType piece = AnsiConsole.Prompt(new SelectionPrompt<PieceType>()
         .Title($"[yellow]Elija su pieza {PlayerNameShow(CurrentPlayer)}[/]:")
         .PageSize(12)
-        .HighlightStyle(new Style(foreground: Spectre.Console.Color.Red))
+        .HighlightStyle(new Style(foreground: Color.Red))
         .AddChoices(PiecesBasic.Pieces));
         AnsiConsole.MarkupLineInterpolated($"{PlayerNameShow(CurrentPlayer)} a seleccionado el tipo de pieza [red]{piece}[/]");
         PieceType piecelection = PieceType.None;
@@ -276,25 +320,26 @@ public class GameState : PlayerMethods
         }
         PickPiece(piecelection);
     }
-    public static bool Walk(bool flag)
+    public static bool Walk(bool flag)//Method to walk 
     {
         IEnumerable<string> PosString = Move.PositionsMoves(Move.LegalMoveForPieces(PositionPiece(CurrentPlayer)));
         string movposition = AnsiConsole.Prompt(new SelectionPrompt<string>()
         .Title("Elija a que casilla moverse:")
         .PageSize(12)
-        .HighlightStyle(new Style(foreground: Spectre.Console.Color.Red))
+        .HighlightStyle(new Style(foreground: Color.Red))
         .AddChoices(PosString));
         AnsiConsole.MarkupLineInterpolated($"A seleccionado [red]{movposition}[/]");
         flag = true;
         Move moveAux = new Move(new Position(0, 0), new Position(0, 1));
         Move Doing = new Move(PositionPiece(CurrentPlayer), Position.ToPosition(movposition));
+        //Print the visuals positions
         GenerateLabStruct.PrintLab(Board.VisualPiece(PositionPiece(CurrentPlayer), Board.Laberinth), Position.ToPosition(movposition));
         if (NoDoingActions.Confirm($"[DarkGOldenrod]Tiene seguridad de que se quiere mover a la posición [[{movposition}]] marcada en el mapa con[/][green] verde [/]:") == 'y')
         {
             int count = Move.CountPosition(Move.LegalMoveForPieces(PositionPiece(CurrentPlayer)));
             foreach (Position pos in GetInterPos(Doing))
             {
-                if (Board.IsATrap(Board[pos]))
+                if (Board.IsATrap(Board[pos]))//See if there are no tramps
                 {
                     PieceBoard[pos] = PieceBoard[Doing.FromPos];
                     PieceBoard[Doing.FromPos] = new None();
@@ -337,13 +382,13 @@ public class GameState : PlayerMethods
         }
         return flag;
     }
-    public static bool[] Fight(bool flag, bool fight)
+    public static bool[] Fight(bool flag, bool fight)//Method to fight , reference the FighMethod class
     {
         List<string> PosLuchaString = Move.PositionsListString(FightCells());
         string positionlucha = AnsiConsole.Prompt(new SelectionPrompt<string>()
         .Title("[red]Elija con que casilla luchar:[/]")
         .PageSize(12)
-        .HighlightStyle(new Style(foreground: Spectre.Console.Color.Red))
+        .HighlightStyle(new Style(foreground : Color.Red))
         .AddChoices(PosLuchaString));
         AnsiConsole.MarkupLineInterpolated($"[red]A seleccionado [/][DarkGoldenrod]{positionlucha}[/]");
         Position aux = PositionPiece(CurrentPlayer);
@@ -366,7 +411,7 @@ public class GameState : PlayerMethods
         bool[] shange = { flag, fight };
         return shange;
     }
-    public static bool PortalActivation(bool flag)
+    public static bool PortalActivation(bool flag)//Activate the teleportation whith other ramdom portal(if there are not any valid then the piece can not teleport)
     {
         List<Position> portalspos = CompatiblePortal();
         portalspos.Remove(PositionPiece(CurrentPlayer));
@@ -400,18 +445,17 @@ public class GameState : PlayerMethods
         }
         return flag;
     }
-    public static void Continue()
+    public static void Continue()//Method auxiliar to stop the console and clean it
     {
         AnsiConsole.MarkupLine("[blue]Toque cualquier tecla para continuar[/]");
         Console.ReadKey();
-        Console.Clear();
         Console.Clear();
         var panel = new Panel($"[blue]{CurrentPlayer}:{PlayerNameShow(CurrentPlayer)}     Turno:{Turn}[/]");
         panel.Border = BoxBorder.Rounded;
         panel.BorderColor(Color.Blue);
         AnsiConsole.Write(panel);
     }
-    public static void PlayerPieceView()
+    public static void PlayerPieceView()//Obtion to se a table of the stats of your piece
     {
         Table table = new Table();
         table.AddColumn("[yellow]Infirmación del Jugador[/]");
@@ -423,48 +467,5 @@ public class GameState : PlayerMethods
         table.AddRow($"[red]Armadura Equipada: {GetEquipArmor(PlayerPieceBasic(CurrentPlayer))}[/]");
         table.BorderColor(Color.DarkGoldenrod);
         AnsiConsole.Write(table);
-    }
-    public static void MusicChange()
-    {
-        switch (PlayerPieceBasic(CurrentPlayer).PieceType)
-        {
-            case PieceType.Artillero:
-                audio = "audio/pista artillero.mp3";
-                break;
-            case PieceType.EsclavoLibre:
-                audio = "audio/pista esclavo libre.mp3";
-                break;
-            case PieceType.Explorador:
-                audio = "audio/pista explorador.mp3";
-                break;
-            case PieceType.General:
-                audio = "audio/pista general.mp3";
-                break;
-            case PieceType.Intelectual:
-                audio = "audio/pista intelectual.mp3";
-                break;
-            case PieceType.Hitman:
-                audio = "audio/pista hitman.mp3";
-                break;
-            case PieceType.Jinete:
-                audio = "audio/pista jinete.mp3";
-                break;
-            case PieceType.Soldado:
-                audio = "audio/pista soldado.mp3";
-                break;
-            case PieceType.Titan:
-                audio = "audio/pista titan.mp3";
-                break;
-            case PieceType.Veterano:
-                audio = "audio/pista veterano.mp3";
-                break;
-            case PieceType.Holguinero:
-                audio = "audio/pista holguinero.mp3";
-                break;
-            case PieceType.Bolchevique:
-                audio = "audio/pista bolchevique.mp3";
-                break;
-        }
-        isPlaying = true;
     }
 }

@@ -1,6 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class Explorador : PiecesBasic
+public class Explorador : PiecesBasic//All espesifications in PieceBasic class exept the hability
 {
   public override PieceType PieceType => PieceType.Explorador;
   public override Player Number { get; }
@@ -9,7 +9,7 @@ public class Explorador : PiecesBasic
     Number = number;
   }
   public static new List<Object> Inventary = new List<Object>();
-  public static void Hability(PiecesBasic enemypiece)
+  public static void Hability(PiecesBasic enemypiece)//This hability activate in the FightMethods class
   {
     var table = new Table();
     table.AddColumn("[red]Tipo[/]").Centered();

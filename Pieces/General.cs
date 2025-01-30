@@ -3,13 +3,14 @@ using Spectre.Console;
 using System.Timers;
 public class General : PiecesBasic
 {
-  public override PieceType PieceType => PieceType.General;
+  public override PieceType PieceType => PieceType.General;//All espesifications in PieceBasic class exept the hability
   public override Player Number { get; }
   public General(Player number)
   {
     Number = number;
   }
   public static new List<Object> Inventary = new List<Object>();
+  //This are the time methonds to the timer
   public static void OnTimedEvent(object source, ElapsedEventArgs e)
   {
     Console.Clear();
@@ -23,7 +24,7 @@ public class General : PiecesBasic
   {
     GameState.timer.Enabled = false;
   }
-  public static void Hability()
+  public static void Hability()//Can see a map whith only the events mark in the timer of 15s 
   {
     GameState.timer.Elapsed += OnTimedEvent;
     GameState.timer.AutoReset = false;

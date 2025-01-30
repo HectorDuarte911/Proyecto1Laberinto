@@ -1,6 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class Hitman : PiecesBasic
+public class Hitman : PiecesBasic//All espesifications in PieceBasic class exept the hability
 {
   public override PieceType PieceType => PieceType.Hitman;
   public override Player Number { get; }
@@ -9,7 +9,7 @@ public class Hitman : PiecesBasic
     Number = number;
   }
   public static new List<Object> Inventary = new List<Object>();
-  public static void Hability()
+  public static void Hability()//Put to rest mode to a player (is broken)
   {
     Player election = AnsiConsole.Prompt(new SelectionPrompt<Player>()
     .Title("[red]Elija a que jugador ¨silenciar¨:[/]")

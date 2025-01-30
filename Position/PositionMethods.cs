@@ -1,6 +1,7 @@
 namespace ProjectLogic;
 public class PositionMethods :BoolMethods
 {
+    //Retorn the position of the piece of a player
     public static Position PositionPiece(Player player)
     {
         foreach (Position pos in PiecePositions())
@@ -9,6 +10,7 @@ public class PositionMethods :BoolMethods
         }
         throw new Exception("Jugador no está en juego");
     }
+    //Return all the positions of the pieces in the piece board
     public static IEnumerable<Position> PiecePositions()
     {
         for (int i = 0; i < GameState.dim; i++)
@@ -20,6 +22,7 @@ public class PositionMethods :BoolMethods
             }
         }
     }
+    //Return a colection of the positions between the from move postion and the to move position
     public static IEnumerable<Position> GetInterPos(Move move)
     {
         Direction i = Direction.GetMoveDirection(move);
@@ -35,6 +38,7 @@ public class PositionMethods :BoolMethods
             ipos += Direction.GetMoveDirection(move);
         }
     }
+    //Return a list of all the positions of the portal
     public static List<Position> CompatiblePortal()
     {
         List<Position> positions = new List<Position>() { };
@@ -48,6 +52,7 @@ public class PositionMethods :BoolMethods
         }
         return positions;
     }
+    //Return all the cells than you can fight adyacent to the position of your piece
     public static List<Position> FightCells()
     {
         List<Position> fightcells = new List<Position>();
@@ -68,6 +73,7 @@ public class PositionMethods :BoolMethods
         PiecesBasic.NumberOfMovesDoing = NumberOfMovesDoingAux;
         return fightcells;
     }
+    //Return all the adyacents cells than have the same cellstype and piecetype introduced
     public static List<Position> GetAdyacetsCells(CellsType type, PieceType typepiece)
     {
         List<Position> adyacents = new List<Position>() { };
@@ -89,6 +95,7 @@ public class PositionMethods :BoolMethods
         PiecesBasic.NumberOfMovesDoing = NumberOfMovesDoingAux;
         return adyacents;
     }
+    //Method to mix a list of positions
     public static void MixPositions(List<Position> array)
     {
         Random random = new Random();

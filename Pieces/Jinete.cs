@@ -1,5 +1,5 @@
 namespace ProjectLogic;
-public class Jinete : PiecesBasic
+public class Jinete : PiecesBasic//All espesifications in PieceBasic class exept the hability
 {
   public override PieceType PieceType => PieceType.Jinete;
   public override Player Number { get; }
@@ -8,7 +8,7 @@ public class Jinete : PiecesBasic
     Number = number;
   }
   public static new List<Object> Inventary = new List<Object>();
-  public static void Hability()
+  public static void Hability()//Hability than activete this turn and cancel it efect in the end of the turn with the EnableHability method
   {
     if (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Jinete) Force += NumberOfMovesDoing / 2;
     else Intelectual.Force += NumberOfMovesDoing / 2;

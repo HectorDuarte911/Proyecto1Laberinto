@@ -1,9 +1,8 @@
-﻿using SixLabors.ImageSharp;
-
-namespace ProjectLogic;
+﻿namespace ProjectLogic;
 public class Board
 {
-    public static CellsType[,] Laberinth = new CellsType[GameState.dim, GameState.dim];
+    public static CellsType[,] Laberinth = new CellsType[GameState.dim, GameState.dim];//Board of dimension nxn
+    //This are links from the position class to th board
     public CellsType this[int row, int col]
     {
         get { return Laberinth[row, col]; }
@@ -14,15 +13,18 @@ public class Board
         get { return this[pos.Row, pos.Column]; }
         set { this[pos.Row, pos.Column] = value; }
     }
+    //Verification if piece are inside the board
     public static bool IsInside(Position pos)
     {
         return pos.Row >= 0 && pos.Row < GameState.dim && pos.Column >= 0 && pos.Column < GameState.dim;
     }
+    //Verification if the cell is a trap
     public static bool IsATrap(CellsType Cells)
     {
         return Cells == CellsType.TrampaMosquitera || Cells == CellsType.HoyoProfundo || Cells == CellsType.PasilloAgotante
              || Cells == CellsType.RanaSorpresa;
     }
+    //Board with all the visible position from the actual player piece
     public static CellsType[,] VisualPiece(Position pos, CellsType[,] Board)
     {
         CellsType[,] VisualLab = new CellsType[GameState.dim, GameState.dim];
@@ -39,10 +41,12 @@ public class Board
         }
         return VisualLab;
     }
+    //Comprobation of the visibility of a cell
     public static bool ISVisible(Position pos, Position to, CellsType[,] Board, int numberVis)
     {
         return IsVisualNoWall(pos, to, numberVis) || IsVisualWall(pos, to, numberVis);
     }
+    //Comprobation of the visibility of the cells ,are not a wall
     public static bool IsVisualNoWall(Position piecepos, Position Topos, int numberVis)
     {
         if (GameState.Board[Topos] != CellsType.Wall)
@@ -52,6 +56,7 @@ public class Board
         }
         return false;
     }
+    //Comprobation of the visibility of the cells , are a wall
     public static bool IsVisualWall(Position piecepos, Position Topos, int numberVis)
     {
         List<Direction> dirs = new List<Direction>()
@@ -75,6 +80,7 @@ public class Board
         }
         return false;
     }
+    //Comprobation if one position is reachable
     public static bool IsReachable(Board board, Position from, Position to, int remeingmove, bool[,] visitated)
     {
         if (from.Row == to.Row && from.Column == to.Column) return true;

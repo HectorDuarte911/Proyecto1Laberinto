@@ -1,4 +1,5 @@
 namespace ProjectLogic;
+//All the objects in the game
 public enum Object
 {
   none,
@@ -57,6 +58,7 @@ public enum Object
 }
 public class ObjectsStats
 {
+//Stats,weight and descriptions of all the objects in dictionarys
   public static Dictionary<Object, int> StatsForce = new Dictionary<Object, int>()
     {
     {Object.none,0},

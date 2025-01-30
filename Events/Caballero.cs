@@ -1,6 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class Caballero:Events
+public class Caballero:Events//Espesifications in Event class
 {
 public override CellsType Type =>CellsType.Caballero;
 public override Player Player => Player.None; 

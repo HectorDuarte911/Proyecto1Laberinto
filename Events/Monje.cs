@@ -1,6 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class Monje : Events
+public class Monje : Events//Espesifications in Event class
 {
     public override CellsType Type => CellsType.Monje;
     public override Player Player => Player.None;

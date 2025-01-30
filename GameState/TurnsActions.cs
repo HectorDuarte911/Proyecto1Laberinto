@@ -1,6 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public enum TurnActions
+public enum TurnActions//All the posible actions of a turn
 {
     Caminar,
     ActivarHabilidad,
@@ -8,7 +8,6 @@ public enum TurnActions
     DerribarObstaculos,
     ActivarPortal,
     Rendirse,
-    MirarMapa,
     ObcionesEquipo,
     MirarEquipo,
     TerminarTurno,
@@ -20,15 +19,12 @@ public enum TurnActions
     VerCaracteristicasDeObjetos,
     CerrarEquipo,
     InfoJuego,
-    SALIR,
-    EMPEZARPARTIDA,
-    OBCCIONESPARTIDA,
     DescartarObjeto,
     PlayerPieceView,
 }
 public class NoDoingActions
 {
-    public static List<TurnActions> UndoingActions = new List<TurnActions>()
+    public static List<TurnActions> UndoingActions = new List<TurnActions>()//Actions that the player can do
    {
     TurnActions.PlayerPieceView,
     TurnActions.InfoJuego,
@@ -36,7 +32,7 @@ public class NoDoingActions
     TurnActions.ObcionesEquipo,
     TurnActions.TerminarTurno,
    };
-    public static List<TurnActions> FightActions = new List<TurnActions>()
+    public static List<TurnActions> FightActions = new List<TurnActions>()//Actions that the player can do in figth
    {
     TurnActions.PlayerPieceView,
     TurnActions.atacar,
@@ -44,7 +40,7 @@ public class NoDoingActions
     TurnActions.ObcionesEquipo,
     TurnActions.abandonar,
    };
-    public static List<TurnActions> EquipActions = new List<TurnActions>()
+    public static List<TurnActions> EquipActions = new List<TurnActions>()//Actions that the player can do in equip obtions
    {
     TurnActions.PlayerPieceView,
     TurnActions.EquiparArma,
@@ -55,12 +51,12 @@ public class NoDoingActions
     TurnActions.DescartarObjeto,
     TurnActions.InfoJuego
    };
-    public static void AjustAction(TurnActions TurnActions)
+    public static void AjustAction(TurnActions TurnActions)//This Methonds if to no have two of the same ations in the list
     {
         NoDoingActions.UndoingActions.Remove(TurnActions);
         NoDoingActions.UndoingActions.Add(TurnActions);
     }
-    public static char Confirm(string confimation)
+    public static char Confirm(string confimation)//Action to confirm if you are sure of continue with the same desition
     {
         string color = "white";
         char confirm = AnsiConsole.Prompt(new SelectionPrompt<char>()

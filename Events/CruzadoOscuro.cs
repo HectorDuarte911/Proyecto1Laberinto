@@ -1,6 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class CruzadoOscuro : Events
+public class CruzadoOscuro : Events//Espesifications in Event class
 {
     public override CellsType Type => CellsType.CruzadoOscuro;
     public override Player Player => Player.None;

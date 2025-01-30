@@ -1,5 +1,5 @@
 namespace ProjectLogic;
-public enum QuestionsName
+public enum QuestionsName//All the question name
 {
     NumeroCruzadas,
     NumeroAbraham,
@@ -44,6 +44,7 @@ public enum QuestionsName
 }
 public class Question
 {
+    //Dictinarys to the text,anwser and posible choices of the questions ;and the list of questions left 
     public static Dictionary<QuestionsName, string> QuesionsTexts = new Dictionary<QuestionsName, string>()
     {
     {QuestionsName.NumeroCruzadas,"Cuántas cruzadas se llevaron a cabo ?"},

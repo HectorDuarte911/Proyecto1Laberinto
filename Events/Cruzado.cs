@@ -1,8 +1,6 @@
-using System.Dynamic;
 using Spectre.Console;
-
 namespace ProjectLogic;
-public class Cruzado : Events
+public class Cruzado : Events//Espesifications in Event class
 {
     public override CellsType Type => CellsType.Cruzado;
     public override Player Player => Player.None;

@@ -1,6 +1,6 @@
 namespace ProjectLogic;
 using Spectre.Console;
-public class Holguinero : PiecesBasic//Similar al Artillero
+public class Holguinero : PiecesBasic//All espesifications in PieceBasic class exept the hability
 {
   public override PieceType PieceType => PieceType.Holguinero;
   public override Player Number { get; }
@@ -9,7 +9,7 @@ public class Holguinero : PiecesBasic//Similar al Artillero
     Number = number;
   }
   public static new List<Object> Inventary = new List<Object>();
-  public static void Hability()
+  public static void Hability()//Put a obstacle in a none cell
   {
     List<string> ListAd = new List<string>();
     foreach (Position pos in GameState.GetAdyacetsCells(CellsType.None, PieceType.None))

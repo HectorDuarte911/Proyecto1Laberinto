@@ -1,7 +1,7 @@
 using Spectre.Console;
 using System.Timers;
 namespace ProjectLogic;
-public class Veterano : PiecesBasic//Similar al Artillero
+public class Veterano : PiecesBasic//All espesifications in PieceBasic class exept the hability
 {
   public override PieceType PieceType => PieceType.Veterano;
   public override Player Number { get; }
@@ -10,7 +10,7 @@ public class Veterano : PiecesBasic//Similar al Artillero
     Number = number;
   }
   public static new List<Object> Inventary = new List<Object>();
-  public static void Hability()
+  public static void Hability()//Can see a map whith only the tramps mark in the timer of 15s 
   {
     GameState.timer.Elapsed += General.OnTimedEvent;
     GameState.timer.AutoReset = false;

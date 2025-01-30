@@ -1,6 +1,7 @@
 namespace ProjectLogic;
 public class StatsMethods :EventsMethods
 {
+    //Methonds to get the diferent stats of the pieces whith references
     public static int GetNumberOfMove(PiecesBasic piece)
     {
         switch (piece.PieceType)
@@ -220,6 +221,7 @@ public class StatsMethods :EventsMethods
         }
         throw new ArgumentException("");
     }
+    //Methond to no have negative stats 
     public static void NoNegativeStats(PieceType piece)
     {
         switch (piece)

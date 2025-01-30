@@ -1,4 +1,5 @@
 namespace ProjectLogic;
+//Class of each player representing the player basic methond
 public class NonePlayer : PlayerBasic
 {
     public override Player player => Player.None;
