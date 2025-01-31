@@ -1,11 +1,35 @@
 namespace ProjectLogic;
 using Spectre.Console;
+using NAudio.Wave;
 public class Program//This is the main class than resive reference of all other class , specially the GamaState class
 {
     public static void Main(string[] args)
     {
         while (true)
-        {
+        { 
+            Console.Clear();
+            var panelmusic = new Panel($"[yellow]Antes de empezar elije cual de las pistas sonará durante la partidada[/]");
+            panelmusic.Border = BoxBorder.Double;
+            AnsiConsole.Write(panelmusic);
+             string electionmusic = AnsiConsole.Prompt(new SelectionPrompt<string>()
+            .PageSize(13)
+            .HighlightStyle(new Style(foreground: Spectre.Console.Color.Red))
+            .AddChoices(
+            "Artillero",
+            "EsclavoLibre",
+            "Explorador",
+            "General",
+            "Hitman",
+            "Holguinero",
+            "Intelectual",
+            "Bolchevique",
+            "Soldado",
+            "Jinete",
+            "Titan",
+            "Veterano",
+            "Inicio"
+            ));
+            GameState.ChangeMusicIndex(electionmusic);
             Thread music = new Thread(GameState.PlayAudio);
             music.Start();
             bool flag = true, Activation = false;
@@ -77,10 +101,6 @@ public class Program//This is the main class than resive reference of all other 
             if (GameState.IsInGame(Player.CuartoJugador)) HabilitysMethods.SetHabilityTurn(Player.CuartoJugador, 1);
             while (GameState.Winner == Player.None)//This while is in action while there is not any winner
             {
-                GameState.StopAudio();
-                GameState.MusicChange();//Here the music chage when the turn of a player beging
-                Thread music2 = new Thread(GameState.PlayAudio);
-                music2.Start();
                 if (GameState.IsInGame(Player.PrimerJugador))
                 {
                     if (GameState.CurrentPlayer == Player.PrimerJugador) GameState.Turn++;
@@ -102,7 +122,7 @@ public class Program//This is the main class than resive reference of all other 
                 {
                     var panel1 = new Panel($"[yellow]{GameState.PlayerNameShow(GameState.CurrentPlayer)} esta en reposo[/]");
                     panel1.Border = BoxBorder.Double;
-                    Console.Write(panel1);
+                    AnsiConsole.Write(panel1);
                     flag = false;
                 }
                 PiecesBasic.NumberOfMovesDoing = 0;
@@ -278,10 +298,6 @@ public class Program//This is the main class than resive reference of all other 
             if (GameState.Winner != Player.None)//Final Message if any player win
             {
                 Console.Clear();
-                GameState.StopAudio();
-                GameState.audio = "audio/pista inicio.mp3";
-                Thread music2 = new Thread(GameState.PlayAudio);
-                music2.Start();
                 AnsiConsole.Markup(@"[DarkGoldenrod]
                                               ██░ ██  ▄▄▄        ██████      ▄████  ▄▄▄      ███▄    █  ▄▄▄      ▓█████▄  ▒█████  
                                                 ▓██░ ██▒▒████▄    ▒██    ▒     ██▒ ▀█▒▒████▄    ██ ▀█   █ ▒████▄    ▒██▀ ██▌▒██▒  ██▒
@@ -295,6 +311,7 @@ public class Program//This is the main class than resive reference of all other 
                                                                                                             ░    [/]           
                     ");
             }
+            GameState.StopAudio();
         }
     }
 }

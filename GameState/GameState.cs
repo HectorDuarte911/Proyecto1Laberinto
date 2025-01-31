@@ -12,8 +12,8 @@ public class GameState : PlayerMethods//This class represent the state of the ga
     //This filds are the ones who play the music   
     public static WaveOutEvent outputDevice;
     public static AudioFileReader audioFile;
+    public static int indexaudio = 0;
     public static bool isPlaying = true, Trivial = true;
-    public static string audio = "audio/pista inicio.mp3";//Current audio playing
     public static List<PieceType> PiecesInGame = new List<PieceType>();//Actual piece in game
     public static List<Player> PlayersInGame = new List<Player>()//Actual list of players in game
     {
@@ -32,7 +32,7 @@ public class GameState : PlayerMethods//This class represent the state of the ga
         while (isPlaying)
         {
             string projectDir = Directory.GetCurrentDirectory();
-            string rute = Path.Combine(projectDir, audio);
+            string rute = Path.Combine(projectDir, ChangeMusic[indexaudio]);
             audioFile = new AudioFileReader(rute);
             outputDevice = new WaveOutEvent();
             outputDevice.Init(audioFile);
@@ -54,48 +54,66 @@ public class GameState : PlayerMethods//This class represent the state of the ga
             outputDevice.Dispose();
         }
     }
-    public static void MusicChange()//Method to change the audio
+    public static List<string> ChangeMusic = new List<string>()
     {
-        switch (PlayerPieceBasic(CurrentPlayer).PieceType)
+    "audio/pista inicio.mp3",
+    "audio/pista artillero.mp3",   
+    "audio/pista esclavo libre.mp3",
+    "audio/pista explorador.mp3",
+    "audio/pista general.mp3",
+    "audio/pista intelectual.mp3",
+    "audio/pista hitman.mp3",
+    "audio/pista jinete.mp3",
+    "audio/pista soldado.mp3",
+    "audio/pista titan.mp3",
+    "audio/pista veterano.mp3",
+    "audio/pista holguinero.mp3",
+    "audio/pista bolchevique.mp3",         
+    } ;
+    public static void ChangeMusicIndex(string musicobtion)
+    {
+        switch(musicobtion)
         {
-            case PieceType.Artillero:
-                audio = "audio/pista artillero.mp3";
-                break;
-            case PieceType.EsclavoLibre:
-                audio = "audio/pista esclavo libre.mp3";
-                break;
-            case PieceType.Explorador:
-                audio = "audio/pista explorador.mp3";
-                break;
-            case PieceType.General:
-                audio = "audio/pista general.mp3";
-                break;
-            case PieceType.Intelectual:
-                audio = "audio/pista intelectual.mp3";
-                break;
-            case PieceType.Hitman:
-                audio = "audio/pista hitman.mp3";
-                break;
-            case PieceType.Jinete:
-                audio = "audio/pista jinete.mp3";
-                break;
-            case PieceType.Soldado:
-                audio = "audio/pista soldado.mp3";
-                break;
-            case PieceType.Titan:
-                audio = "audio/pista titan.mp3";
-                break;
-            case PieceType.Veterano:
-                audio = "audio/pista veterano.mp3";
-                break;
-            case PieceType.Holguinero:
-                audio = "audio/pista holguinero.mp3";
-                break;
-            case PieceType.Bolchevique:
-                audio = "audio/pista bolchevique.mp3";
-                break;
+            case "Artillero":
+            indexaudio = 1;
+            break;
+            case"EsclavoLibre":
+            indexaudio = 2;
+            break;
+            case"Explorador":
+            indexaudio = 3;
+            break;
+            case"General":
+            indexaudio = 4;
+            break;
+            case"Hitman":
+            indexaudio = 6;
+            break;
+            case"Holguinero":
+            indexaudio = 11;
+            break;
+            case"Intelectual":
+            indexaudio = 5;
+            break;
+            case"Bolchevique":
+            indexaudio = 12;
+            break;
+            case"Soldado":
+            indexaudio = 8;
+            break;
+            case"Jinete":
+            indexaudio = 7;
+            break;
+            case"Titan":
+            indexaudio = 9;
+            break;
+            case"Veterano":
+            indexaudio = 10;
+            break;
+            case"Inicio":
+            indexaudio = 0;
+            break;
         }
-        isPlaying = true;
     }
     public static void InfoGame()//Method to elect the obtion of the info of the game
     {
