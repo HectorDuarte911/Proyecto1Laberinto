@@ -9,7 +9,7 @@ public class CruzadoOscuro : Events//Espesifications in Event class
     public static new Object Reward()
     {
         var InformativePanel = new Panel(@"[green]Lograte vencer al cruzado que emanaba oscuridad puedes tomar su armadura y luego será tu 
-                                                  desición heredar su voluntad oscura o no[/]");
+        desición heredar su voluntad oscura o no[/]");
         InformativePanel.BorderColor(Color.Green);
         AnsiConsole.Write(InformativePanel);
         return Object.ArmaduraOscura;

@@ -5,7 +5,7 @@ public class ArqueroLargo : Events//Espesifications in Event class
     public override CellsType Type => CellsType.ArqueroLargo;
     public override Player Player => Player.None;
     public static new string Description => @"Ve a un arquero con un arco extremadamente largo para sus costumbres así que se le ocurre la idea 
-                                              de que tal vez pueda apropiarse de él";
+    de que tal vez pueda apropiarse de él";
     public static new int Armor = 18;
     public static new Object Reward()
     {

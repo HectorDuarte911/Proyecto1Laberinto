@@ -143,9 +143,9 @@ public class GameState : PlayerMethods//This class represent the state of the ga
     public static void SeeLore()//Obtion to see the lore
     {
         string Lore = @"[DarkGoldenrod]
-        En un tiempo y espacio desconocido varios portales se habrieron hacia un laberinto,los portales salieron grandes representaciones de         
-        la historia desde los tiempos medievales hasta el siglo XX. Tú eres una de estas  peculiares  personas quese  encuentran confundidas         
-        y en cuanto despertaste de tú inconsiencia quisiste saber la situación. Un mensaje está  grabado en un  cartel  que te informa de la         
+        En un tiempo y espacio desconocido varios portales se abrieron hacia un laberinto,los portales salieron grandes representaciones de         
+        la historia desde los tiempos medievales hasta el siglo XX. Tú eres una de estas  peculiares  personas que se  encuentran confundidas         
+        , en cuanto despertaste de tú inconsciencia quisiste saber la situación. Un mensaje está  grabado en un  cartel  que te informa de la         
         razón por la cual has sido traido al laberinto . Esta es una prueba de Dios para ver que  combatiente  es más habilidosa en salir de         
         este laberinto .Solo se salvará uno por lo que debes apresurarte y tomar todo lo que tengas en el camino para ganar fuerza  y  salir         
         de este inmundo lugar .Debes tener cuidado con las trampas , pensar en si es viable  quitar un  obstáculo del camino,arriesgarte con         
@@ -424,7 +424,7 @@ public class GameState : PlayerMethods//This class represent the state of the ga
             DescriptionPanel.BorderColor(Spectre.Console.Color.White);
             AnsiConsole.Write(DescriptionPanel);
         }
-        fight = FightMethods.FightAction(flag, fightposition, aux, fightflag);
+        fight = FightAction(flag, fightposition, aux, fightflag);
         NoDoingActions.FightActions.Remove(TurnActions.ActivarHabilidad);
         bool[] shange = { flag, fight };
         return shange;

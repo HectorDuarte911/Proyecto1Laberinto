@@ -81,9 +81,12 @@ public class FightMethods : ObjectMethods
                 WinnerPlayer = enemyplayer;
             }
             PiecesBasic RestPlayerAux = GameState.PlayerPieceBasic(RestPlayer);
+            if(WinnerPlayer != Player.None)
+            {
             PiecesBasic WinnerPlayerAux = GameState.PlayerPieceBasic(WinnerPlayer);
             GameState.PieceBoard[GameState.PositionPiece(enemyplayer)] = WinnerPlayerAux;
             GameState.PieceBoard[aux] = RestPlayerAux;
+            }
             fight = true;
             if (GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType != PieceType.Soldado || GameState.PlayerPieceBasic(RestPlayer).PieceType != PieceType.Soldado
             || !GameState.VariantActivation || !(GameState.PlayerPieceBasic(GameState.CurrentPlayer).PieceType == PieceType.Intelectual &&

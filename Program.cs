@@ -8,7 +8,7 @@ public class Program//This is the main class than resive reference of all other 
         while (true)
         { 
             Console.Clear();
-            var panelmusic = new Panel($"[yellow]Antes de empezar elije cual de las pistas sonará durante la partidada[/]");
+            var panelmusic = new Panel($"[yellow]Antes de empezar elije cual de las pistas sonará durante la partida[/]");
             panelmusic.Border = BoxBorder.Double;
             AnsiConsole.Write(panelmusic);
              string electionmusic = AnsiConsole.Prompt(new SelectionPrompt<string>()
@@ -170,6 +170,7 @@ public class Program//This is the main class than resive reference of all other 
                             {
                                 bool[] shange = GameState.Fight(flag, fight);
                                 flag = shange[0]; fight = shange[1];
+                                GameState.Continue();
                             }
                             break;
                         case TurnActions.RomperMuro:
