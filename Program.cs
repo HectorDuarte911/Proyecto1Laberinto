@@ -13,7 +13,7 @@ public class Program//This is the main class than resive reference of all other 
             AnsiConsole.Write(panelmusic);
              string electionmusic = AnsiConsole.Prompt(new SelectionPrompt<string>()
             .PageSize(13)
-            .HighlightStyle(new Style(foreground: Spectre.Console.Color.Red))
+            .HighlightStyle(new Style(foreground:Color.Red))
             .AddChoices(
             "Artillero",
             "EsclavoLibre",
@@ -170,7 +170,6 @@ public class Program//This is the main class than resive reference of all other 
                             {
                                 bool[] shange = GameState.Fight(flag, fight);
                                 flag = shange[0]; fight = shange[1];
-                                GameState.Continue();
                             }
                             break;
                         case TurnActions.RomperMuro:

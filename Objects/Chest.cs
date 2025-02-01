@@ -14,7 +14,7 @@ public class Chest
             case 0:
             Random random1 = new Random();
             int objectrand = random1.Next(0,PosibleObjects.Count);
-            AnsiConsole.WriteLine($"[green]Ha encontrado {PosibleObjects[objectrand]} en el cofre[/]");
+            AnsiConsole.Write($"[green]Ha encontrado {PosibleObjects[objectrand]} en el cofre[/]");
             GameState.AddObject(PosibleObjects[objectrand]);
             PosibleObjects.Remove(PosibleObjects[objectrand]);
             break;

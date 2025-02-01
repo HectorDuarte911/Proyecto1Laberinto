@@ -30,7 +30,6 @@ public class GenerateLabForm : GenerateLabStruct
     CellsType.Mazero,
     CellsType.SeñorOscuro,
     CellsType.Cofre,
-    CellsType.Cofre,
    };
     //Comprobation yhan all the positions are visited
     public static bool IsCompleteVisited(bool[,] visited)
@@ -47,7 +46,7 @@ public class GenerateLabForm : GenerateLabStruct
     //Method than fill the maze with a cell in the list in a ramdom position
     public static void CompleteLab()
     {
-        int leght = 26;
+        int leght = 25;
         int trampcount = 0;
         bool[,] visited = new bool[GameState.dim, GameState.dim];
         for (int i = 0; i < GameState.dim; i++)
