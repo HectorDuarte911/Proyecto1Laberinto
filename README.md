@@ -38,7 +38,7 @@ The project has different folders and inside different classes whith functions t
   <th>Action Name</th>
   <th>Activate Time</th>
   <th>Number Activation</th>
-  <th>Number Activation</th>
+  <th>Funcionality</th>
  </tr>
   <tr>
   <th>Caminar</th>
@@ -54,41 +54,76 @@ The project has different folders and inside different classes whith functions t
   <th>Whith this action you can activate the ability of your piece</th>
  </tr>
   <tr>
-  <th>-Derribar Obstaculos :When you have full movement, and you are adjacent to an obstacle ;	If you can regenerate your movement then you can activate this twice in a turn, but I dude it ;	Whith this action you can 
-remove one adjacent obstacle, but this consumes all your movement</th>
-  <th>Activate Time</th>
-  <th>Number Activation</th>
-  <th>Number Activation</th>
+  <th>Derribar Obstaculos</th>
+  <th>When you have full movement, and you are adjacent to an obstacle</th>
+  <th>If you can regenerate your movement then you can activate this twice in a turn, but I dude it</th>
+  <th>Whith this action you can remove one adjacent obstacle, but this consumes all your movement</th>
  </tr>
   <tr>
-  <th>Action Name</th>
-  <th>Activate Time</th>
-  <th>Number Activation</th>
-  <th>Number Activation</th>
+  <th>Activar Portal</th>
+  <th>When you have full movement, and you are in a cell with a portal	</th>
+  <th>If you can regenerate your movement then you can activate this twice in a turn, but I dude it </th>
+  <th>Whith this action you can teleport to other portal if all of them are not occupied but this consumes all your movement</th>
+ </tr>
+   <tr>
+  <th>Romper Muro</th>
+  <th>This is an action exclusive to the piece “Artillero” or “Intelectual”. You can do it when you are adjacent to a wall than are not in the corner of the maze</th>
+  <th>	Once per turn </th>
+  <th>	With this action you can
+remove one adjacent wall than can not be a corner wall</th>
+ </tr>
+   <tr>
+  <th>Rendirse</th>
+  <th>At any time except in menus like equip menu or info menu</th>
+  <th>Once per turn</th>
+  <th>Whith this action you can surrender and lose the game</th>
+ </tr>
+   <tr>
+  <th>Obcion Equipo</th>
+  <th>At any time except in info menu</th>
+  <th>At many times, you want</th>
+  <th>Whith this action you can adjust your piece’s inventory</th>
+ </tr>
+   <tr>
+  <th>Terminar Turno</th>
+  <th>At any time, except when you are in a sub option menu like the fight menu, the equip menu or the info menu</th>
+  <th> Once per turn </th>
+  <th>Whith this action you end your turn</th>
+ </tr>
+   <tr>
+  <th>Luchar</th>
+  <th>Only when you are next another piece or an event</th>
+  <th>Once per turn</th>
+  <th>Whith this action you can fight whith other piece to slow it or fight whith an event to take a reward but consume all your movement</th>
+ </tr>
+   <tr>
+  <th>Info Juego</th>
+  <th>At any time, except when you are in a sub option menu like the fight menu or the equip menu</th>
+  <th>At many times, you want</th>
+  <th>Whith this action you can see many characteristics of the game like the lore,
+the color and abilities of the pieces and more</th>
+ </tr>
+   <tr>
+  <th>Player Piece View</th>
+  <th>At any time, except when you are in a sub option menu like the fight menu, the equip menu or the info menu</th>
+  <th>At many times, you want	</th>
+  <th>Whith this action you can see your piece actual stats</th>
  </tr>
  
- 
 
 
 
 
 
 
--Activar Portal :When you have full movement, and you are in a cell with a portal	; If you can regenerate your movement then you can activate this twice in a turn, but I dude it ;	Whith this action you can
-teleport to other portal if all of them are not occupied but this consumes all your movement
 
--Romper Muro :This is an action exclusive to the piece “Artillero” or “Intelectual”. You can do it when you are adjacent to a wall than are not in the corner of the maze ;	Once per turn ;	With this action you can
-remove one adjacent wall than can not be a corner wall.
 
--Rendirse :	At any time except in menus like equip menu or info menu	; Once per turn	; Whith this action you can surrender and lose the game.
 
--Obcion Equipo : At any time except in info menu	; At many times, you want ;	Whith this action you can adjust your piece’s inventory.
 
--Terminar Turno : At any time, except when you are in a sub option menu like the fight menu, the equip menu or the info menu	; Once per turn ; Whith this action you end your turn.
 
--Luchar :Only when you are next another piece or an event	; Once per turn	; Whith this action you can fight whith other piece to slow it or fight whith an event to take a reward but consume all your movement 
 
--Info Juego : At any time, except when you are in a sub option menu like the fight menu or the equip menu ; At many times, you want	; Whith this action you can see many characteristics of the game like the lore,
-the color and abilities of the pieces and more.
 
--Player Piece View	: At any time, except when you are in a sub option menu like the fight menu, the equip menu or the info menu	; At many times, you want	; Whith this action you can see your piece actual stats
+
+
+
+
