@@ -42,41 +42,61 @@ The project has different folders and inside different classes whith functions t
 . Tramps: Manage the effects of the tramps in different classes.
 
  How to play?
+ 
 
  The players have turns in the order than they choices, you can do it whith the maze since and the names of the players in the configuration of the game in the principal menu. If you don’t do it then the
 
+ 
  configuration still in the predetermined configuration (two players, maze 33x33, and the names of the player the same number of they). When you are ready you may start playing selecting the option 
 
+ 
  "Cargar Partida" and the game begins. Each player may choose their piece in the order than they want to play and when all the player choice their pieces the first player can start. You notice than the music
+
 
  change, this is because each of the piece have its own music and when the turn starts the music change to the current piece type. You have a list of actions in your turn, you can do one of them at once, 
 
- the actions may activate.(See Anex 1). The turn only finishes when you select the action “Terminar Turno” or when you surrender. You can’t move to a cell with an event, obstacle , wall , or other piece .
+
+ the actions may activate.(See Annex ). The turn only finishes when you select the action “Terminar Turno” or when you surrender. You can’t move to a cell with an event, obstacle , wall , or other piece .
+
 
  In the fight you compare the force of the attacker piece with the armor of the defends piece and the highest win (the defend piece wins the draws) ,the piece loser may state two turns in rest state and can’t
  
+
  play in two turns but be careful nether you and your opponent can’t see the others stats. In the games there are objects, all the objects have weight, and you have an inventory weight than can’t be higher than 
+
 
  200 sow mange well your object. You can obtain objects in chest or wining a battle with an event in a map. The “Final” event is the end of the maze you may find a way to it and have a goods stat because you 
 
  can’t go out free. 
 
  
-Anex 1
-Action Name	: Activate Time	; Number Activation	; Functionality
+Annex 
+
+This anex separates the different characteristics of each action of the game by the following order : -Action Name	: Activate Time	; Number Activation	; Functionality
+
 Caminar : Any time, except when you are in a sub option menu like the fight menu, the equip menu or the info menu	; If you have moves lefts, you can activate it ; Whith this action you can walk in the maze.
-Activar Habilidad	:Any time except in menus like equip menu or info menu	;When you activate this the first time you can’t activate this action in the number of cold turn than your ability has	;Whith this action
+
+-Activar Habilidad	:Any time except in menus like equip menu or info menu	;When you activate this the first time you can’t activate this action in the number of cold turn than your ability has	;Whith this action
 you can activate the ability of your piece
-Derribar Obstaculos :When you have full movement, and you are adjacent to an obstacle ;	If you can regenerate your movement then you can activate this twice in a turn, but I dude it ;	Whith this action you can 
+
+-Derribar Obstaculos :When you have full movement, and you are adjacent to an obstacle ;	If you can regenerate your movement then you can activate this twice in a turn, but I dude it ;	Whith this action you can 
 remove one adjacent obstacle, but this consumes all your movement
-Activar Portal :When you have full movement, and you are in a cell with a portal	; If you can regenerate your movement then you can activate this twice in a turn, but I dude it ;	Whith this action you can
+
+-Activar Portal :When you have full movement, and you are in a cell with a portal	; If you can regenerate your movement then you can activate this twice in a turn, but I dude it ;	Whith this action you can
 teleport to other portal if all of them are not occupied but this consumes all your movement
-Romper Muro :This is an action exclusive to the piece “Artillero” or “Intelectual”. You can do it when you are adjacent to a wall than are not in the corner of the maze ;	Once per turn ;	With this action you can
+
+-Romper Muro :This is an action exclusive to the piece “Artillero” or “Intelectual”. You can do it when you are adjacent to a wall than are not in the corner of the maze ;	Once per turn ;	With this action you can
 remove one adjacent wall than can not be a corner wall.
-Rendirse :	At any time except in menus like equip menu or info menu	; Once per turn	; Whith this action you can surrender and lose the game.
-Obcione Equipo : At any time except in info menu	; At many times, you want ;	Whith this action you can adjust your piece’s inventory.
-Terminar Turno : At any time, except when you are in a sub option menu like the fight menu, the equip menu or the info menu	; Once per turn ; Whith this action you end your turn.
-Luchar :Only when you are next another piece or an event	; Once per turn	; Whith this action you can fight whith other piece to slow it or fight whith an event to take a reward but consume all your movement 
-Info Juego : At any time, except when you are in a sub option menu like the fight menu or the equip menu ; At many times, you want	; Whith this action you can see many characteristics of the game like the lore,
+
+-Rendirse :	At any time except in menus like equip menu or info menu	; Once per turn	; Whith this action you can surrender and lose the game.
+
+-Obcion Equipo : At any time except in info menu	; At many times, you want ;	Whith this action you can adjust your piece’s inventory.
+
+-Terminar Turno : At any time, except when you are in a sub option menu like the fight menu, the equip menu or the info menu	; Once per turn ; Whith this action you end your turn.
+
+-Luchar :Only when you are next another piece or an event	; Once per turn	; Whith this action you can fight whith other piece to slow it or fight whith an event to take a reward but consume all your movement 
+
+-Info Juego : At any time, except when you are in a sub option menu like the fight menu or the equip menu ; At many times, you want	; Whith this action you can see many characteristics of the game like the lore,
 the color and abilities of the pieces and more.
-Player Piece View	: At any time, except when you are in a sub option menu like the fight menu, the equip menu or the info menu	; At many times, you want	; Whith this action you can see your piece actual stats
+
+-Player Piece View	: At any time, except when you are in a sub option menu like the fight menu, the equip menu or the info menu	; At many times, you want	; Whith this action you can see your piece actual stats
