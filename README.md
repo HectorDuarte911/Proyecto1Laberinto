@@ -1,8 +1,6 @@
 This project is made is made whith the idea of creating a game of a maze. This may not be the last version of the project because there are much more to change. 
 
-The project was made in a console application in 
-
-Windows. The requisites to execute the project are:
+The project was made in a console application in Windows. The requisites to execute the project are:
 
 . Have installed .Net 8.0.
 
