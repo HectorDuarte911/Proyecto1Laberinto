@@ -1,7 +1,13 @@
-This project is made is made whith the idea of creating a game of a maze. This may not be the last version of the project because there are much more to change. The project was made in a console application in 
+This project is made is made whith the idea of creating a game of a maze. This may not be the last version of the project because there are much more to change. 
+
+The project was made in a console application in 
+
 Windows. The requisites to execute the project are:
- . Have installed .Net 8.0.
+
+. Have installed .Net 8.0.
+
 . Add the package Spectre.Console 
+
 . Add the package NAudio.Wave
 How running the project?
 To open the game, you may open the program directly for the terminal of the PC, but you can open the terminal inside the project whith the much-extended window than you can and open the project whith dotnet run to a little much visibility of things.
